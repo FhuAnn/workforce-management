@@ -1,0 +1,1519 @@
+@startuml
+title 1. Project and Task Time Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Select project and task;
+:Start timer;
+
+|System|
+:Create active time session;
+:Track elapsed and idle time;
+
+|Employee|
+if (Switch task?) then (Yes)
+  :Select another task;
+  |System|
+  :Stop current task segment;
+  :Start new task segment;
+endif
+:Stop timer;
+
+|System|
+:Calculate tracked duration;
+:Attach time to employee, project, and task;
+:Update timesheet;
+
+|Manager|
+:View project and task time summary;
+stop
+@enduml
+
+
+@startuml
+title 2A. Payroll Processing - Prepare Payroll
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Select payroll period;
+:Start payroll calculation;
+
+|System|
+:Load employee contracts;
+:Load approved timesheets;
+:Load overtime, leave, allowances,
+and deductions;
+:Validate payroll inputs;
+
+if (Validation errors?) then (Yes)
+  :Generate error list;
+  |Payroll Staff|
+  :Correct payroll data;
+  :Run validation again;
+else (No)
+  :Calculate gross earnings;
+  :Calculate deductions and taxes;
+  :Calculate net salary;
+  :Create payroll draft;
+endif
+
+|Payroll Staff|
+:Review payroll draft;
+stop
+@enduml
+
+
+@startuml
+title 2B. Payroll Processing - Approval and Payment
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Submit payroll draft;
+
+|Finance Manager|
+:Review totals and exceptions;
+if (Approve payroll?) then (No)
+  :Reject with comments;
+  |Payroll Staff|
+  :Correct payroll draft;
+else (Yes)
+  :Approve payroll;
+  |System|
+  :Lock payroll period;
+  :Generate payment instructions;
+  |Bank / Payment Provider|
+  :Process salary payments;
+  :Return payment status;
+  |System|
+  :Update payment results;
+  |Payroll Staff|
+  :Review failed payments;
+endif
+stop
+@enduml
+
+
+@startuml
+title 3. Payslip Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Select approved payroll;
+:Generate payslips;
+
+|System|
+:Create employee payslip documents;
+:Apply tenant template;
+:Publish payslips;
+:Send notification;
+
+|Employee|
+:Open payslip;
+:View earnings and deductions;
+if (Download?) then (Yes)
+  :Download PDF;
+endif
+if (Raise question?) then (Yes)
+  :Submit payroll inquiry;
+  |Payroll Staff|
+  :Review and respond;
+endif
+stop
+@enduml
+
+
+@startuml
+title 4. Clock In / Clock Out
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Choose Clock In;
+
+|System|
+:Check active session;
+:Validate schedule and location;
+if (Allowed?) then (No)
+  :Reject clock-in and show reason;
+  stop
+else (Yes)
+  :Create work session;
+  :Record clock-in time;
+endif
+
+|Employee|
+:Perform work;
+:Choose Clock Out;
+
+|System|
+:Record clock-out time;
+:Calculate session duration;
+:Update attendance and timesheet;
+stop
+@enduml
+
+
+@startuml
+title 5. Break Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start break;
+
+|System|
+:Verify active work session;
+:Create break record;
+:Pause productive time;
+
+|Employee|
+:Take break;
+:End break;
+
+|System|
+:Record break end time;
+:Calculate break duration;
+:Resume productive time;
+:Update attendance totals;
+
+|Manager|
+:View break summary;
+stop
+@enduml
+
+
+@startuml
+title 6. Attendance Record Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System|
+start
+:Collect clock sessions, breaks,
+leave, and schedule data;
+:Build daily attendance record;
+:Calculate worked hours;
+:Determine attendance status;
+
+if (Anomaly detected?) then (Yes)
+  :Mark missing clock, late arrival,
+early leave, or absence;
+  |Employee|
+  :Submit attendance correction;
+  |Manager|
+  :Review correction;
+  if (Approve?) then (Yes)
+    |System|
+    :Update attendance record;
+  else (No)
+    :Keep original record;
+  endif
+endif
+
+|HR Staff|
+:Review attendance register;
+stop
+@enduml
+
+
+@startuml
+title 7A. Overtime Management - Request and Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Create overtime request;
+:Enter date, hours, and reason;
+:Submit request;
+
+|System|
+:Validate schedule and limits;
+:Notify manager;
+
+|Manager|
+:Review overtime request;
+if (Approve?) then (Yes)
+  :Approve request;
+  |System|
+  :Mark overtime as approved;
+  :Notify employee;
+else (No)
+  :Reject with reason;
+  |System|
+  :Notify employee;
+endif
+stop
+@enduml
+
+
+@startuml
+title 7B. Overtime Management - Validation and Pay
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Work approved overtime;
+:Clock out;
+
+|System|
+:Calculate actual overtime hours;
+:Compare actual and approved hours;
+
+|Manager|
+:Validate overtime record;
+if (Correction needed?) then (Yes)
+  :Request correction;
+  |Employee|
+  :Update record;
+  |Manager|
+  :Approve corrected record;
+endif
+
+|Payroll Staff|
+:Load approved overtime;
+|System|
+:Calculate overtime pay;
+:Add overtime amount to payroll;
+stop
+@enduml
+
+
+@startuml
+title 8. Timesheet Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System|
+start
+:Collect tracked time, manual entries,
+breaks, and overtime;
+:Group time by day, week,
+project, and task;
+:Calculate regular and billable hours;
+
+|Employee|
+:Open weekly timesheet;
+:Review entries;
+if (Missing time?) then (Yes)
+  :Add or edit manual entry;
+  |System|
+  :Recalculate totals;
+endif
+:Submit timesheet;
+
+|System|
+:Change status to Submitted;
+:Notify manager;
+stop
+@enduml
+
+
+@startuml
+title 9. Timesheet Review and Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open submitted timesheet;
+
+|System|
+:Show totals, projects, tasks,
+and exceptions;
+
+|Manager|
+:Review entries;
+if (Timesheet valid?) then (Yes)
+  :Approve timesheet;
+  |System|
+  :Lock approved entries;
+  :Send data to payroll;
+  :Notify employee;
+else (No)
+  if (Correction possible?) then (Yes)
+    :Request correction with comments;
+    |System|
+    :Return timesheet to employee;
+    |Employee|
+    :Correct and resubmit;
+  else (No)
+    :Reject timesheet;
+    |System|
+    :Notify employee;
+  endif
+endif
+stop
+@enduml
+
+
+@startuml
+title 10A. Onboarding Management - Prepare New Hire
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create employee onboarding record;
+:Assign position, department,
+manager, and start date;
+:Select onboarding template;
+:Assign documents and tasks;
+
+|System|
+:Create onboarding checklist;
+:Notify employee and task owners;
+
+|Manager|
+:Review assigned onboarding tasks;
+:Prepare team introduction and equipment;
+stop
+@enduml
+
+
+@startuml
+title 10B. Onboarding Management - Complete Onboarding
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|New Employee|
+start
+:Open onboarding portal;
+:Complete personal information;
+:Upload required documents;
+:Complete assigned training;
+
+|System|
+:Validate required fields;
+:Track checklist progress;
+
+|HR Staff|
+:Review documents;
+if (Requirements complete?) then (No)
+  :Request missing information;
+  |New Employee|
+  :Provide missing information;
+else (Yes)
+  :Mark onboarding complete;
+  |System|
+  :Activate employee profile;
+  :Notify manager and employee;
+endif
+stop
+@enduml
+
+
+@startuml
+title 11. Employment Lifecycle Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Select employee;
+:Choose lifecycle action;
+
+if (Onboard / Activate?) then (Onboard)
+  :Set employment start and status;
+elseif (Transfer?) then (Transfer)
+  :Change department, position,
+or manager;
+elseif (Suspend?) then (Suspend)
+  :Enter suspension period and reason;
+else (Terminate)
+  :Enter last working date and reason;
+endif
+
+|System|
+:Validate effective date;
+:Update employment history;
+:Apply access and payroll changes;
+:Notify affected stakeholders;
+
+|Manager|
+:Review updated employee status;
+stop
+@enduml
+
+
+@startuml
+title 12. Leave Request Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Select leave type and dates;
+:Enter reason and attachment;
+:Submit leave request;
+
+|System|
+:Check overlapping requests;
+:Check leave policy and balance;
+if (Request valid?) then (No)
+  :Show validation errors;
+  |Employee|
+  :Correct request;
+else (Yes)
+  :Create pending request;
+  :Notify approver;
+endif
+
+|Employee|
+if (Update or cancel before approval?) then (Yes)
+  :Edit or cancel request;
+  |System|
+  :Update request and notify approver;
+endif
+stop
+@enduml
+
+
+@startuml
+title 13. Leave Balance Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Configure leave entitlement rules;
+
+|System|
+:Allocate employee leave balance;
+:Apply accrual schedule;
+
+|Employee|
+:Submit approved leave usage;
+
+|System|
+:Deduct used leave;
+:Recalculate remaining balance;
+
+|HR Staff|
+if (Manual adjustment needed?) then (Yes)
+  :Enter adjustment and reason;
+  |System|
+  :Record audit entry;
+  :Update balance;
+endif
+
+|Employee|
+:View entitlement, used,
+and remaining leave;
+stop
+@enduml
+
+
+@startuml
+title 14. Leave Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager / HR Approver|
+start
+:Open pending leave request;
+
+|System|
+:Show employee balance,
+team calendar, and policy checks;
+
+|Manager / HR Approver|
+:Review business impact;
+if (Approve?) then (Yes)
+  :Approve request;
+  |System|
+  :Reserve leave balance;
+  :Update attendance calendar;
+  :Notify employee and team;
+else (No)
+  :Reject with reason;
+  |System|
+  :Notify employee;
+endif
+stop
+@enduml
+
+
+@startuml
+title 15. Project Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Create project;
+:Enter name, client, dates,
+budget, and description;
+
+|System|
+:Validate project data;
+:Create active project;
+
+|Project Manager|
+:Update project status and details;
+if (Archive project?) then (Yes)
+  :Request archive;
+  |System|
+  :Check open tasks and active timers;
+  if (Archive allowed?) then (Yes)
+    :Archive project;
+  else (No)
+    :Show blocking items;
+  endif
+endif
+
+|Management|
+:View project portfolio;
+stop
+@enduml
+
+
+@startuml
+title 16. Project Member Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Open project members;
+:Select employee;
+:Assign project role,
+permissions, and dates;
+
+|System|
+:Validate employee availability;
+:Add employee to project;
+:Notify employee;
+
+|Employee|
+:Access assigned project and tasks;
+
+|Project Manager|
+if (Remove or change member?) then (Yes)
+  :Update role or remove member;
+  |System|
+  :Update access and assignments;
+  :Notify employee;
+endif
+stop
+@enduml
+
+
+@startuml
+title 17. Task Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Create task;
+:Enter title, priority,
+deadline, and estimate;
+:Assign employee;
+
+|System|
+:Create task;
+:Notify assignee;
+
+|Employee|
+:Open task;
+:Update task details or comments;
+:Record work;
+
+|Project Manager|
+:Review task;
+if (Reassign or reprioritize?) then (Yes)
+  :Update assignment or priority;
+  |System|
+  :Notify affected employee;
+endif
+stop
+@enduml
+
+
+@startuml
+title 18. Task Progress Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Open assigned task;
+:Update status and completion percentage;
+:Add progress note;
+
+|System|
+:Save progress;
+:Compare progress with deadline;
+if (Overdue or blocked?) then (Yes)
+  :Flag task;
+  :Notify manager;
+endif
+
+|Manager|
+:Review task dashboard;
+if (Intervention needed?) then (Yes)
+  :Change deadline, priority,
+or assignment;
+  |System|
+  :Notify employee;
+endif
+
+|Employee|
+:Mark task complete;
+|Manager|
+:Verify completion;
+stop
+@enduml
+
+
+@startuml
+title 19. Department Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant Admin / HR|
+start
+:Create department;
+:Enter name and description;
+:Assign department manager;
+
+|System|
+:Validate unique department name;
+:Create department;
+:Grant manager visibility;
+
+|HR Staff|
+:Assign employees to department;
+
+|Department Manager|
+:View department members;
+
+|Tenant Admin / HR|
+if (Update or deactivate?) then (Yes)
+  :Change department details or status;
+  |System|
+  :Update organization structure;
+endif
+stop
+@enduml
+
+
+@startuml
+title 20. Position Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create job position;
+:Define title, responsibilities,
+level, and status;
+
+|System|
+:Validate position data;
+:Create position;
+
+|HR Staff|
+:Assign employees to position;
+:Update position details;
+
+if (Deactivate position?) then (Yes)
+  |System|
+  :Check active employee assignments;
+  if (Assignments exist?) then (Yes)
+    :Require reassignment first;
+  else (No)
+    :Deactivate position;
+  endif
+endif
+stop
+@enduml
+
+
+@startuml
+title 21. Team and Reporting Line Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create team;
+:Assign team manager;
+:Add employees;
+
+|System|
+:Validate reporting relationships;
+if (Circular reporting line?) then (Yes)
+  :Reject configuration;
+  |HR Staff|
+  :Correct manager assignment;
+else (No)
+  :Save team structure;
+  :Update approval routes;
+endif
+
+|Manager|
+:View direct and indirect reports;
+
+|Employee|
+:View manager and team members;
+stop
+@enduml
+
+
+@startuml
+title 22. Workforce Dashboard
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|User|
+start
+:Open workforce dashboard;
+
+|System|
+:Identify user role;
+:Load permitted KPIs;
+:Aggregate attendance, payroll,
+leave, project, and task data;
+:Display role-specific widgets;
+
+|User|
+:Apply date and organization filters;
+|System|
+:Refresh dashboard;
+
+|User|
+if (Open detail?) then (Yes)
+  :Select KPI or alert;
+  |System|
+  :Navigate to detailed records;
+endif
+stop
+@enduml
+
+
+@startuml
+title 23. Workforce Reporting and Export
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager / HR / Payroll Staff|
+start
+:Select report type;
+:Set date range and filters;
+:Run report;
+
+|System|
+:Check data access permissions;
+:Aggregate report data;
+:Display preview;
+
+|Manager / HR / Payroll Staff|
+if (Export?) then (Yes)
+  :Choose CSV, Excel, or PDF;
+  |System|
+  :Generate export file;
+  :Record export audit log;
+  :Provide download;
+endif
+stop
+@enduml
+
+
+@startuml
+title 24A. Tenant Management - Create Organization
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System Admin|
+start
+:Create tenant;
+:Enter organization details;
+:Assign tenant administrator;
+
+|System|
+:Validate tenant identifier;
+:Create isolated tenant workspace;
+:Create default roles and settings;
+:Send activation invitation;
+
+|Tenant Admin|
+:Activate account;
+:Access tenant workspace;
+stop
+@enduml
+
+
+@startuml
+title 24B. Tenant Management - Data Isolation
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant User|
+start
+:Send application request;
+
+|System|
+:Authenticate user;
+:Resolve tenant context;
+:Apply tenant data filter;
+:Check role permissions;
+
+if (Access allowed?) then (Yes)
+  :Read or modify tenant-owned data;
+  :Write tenant-scoped audit log;
+else (No)
+  :Reject cross-tenant or unauthorized access;
+endif
+
+|System Admin|
+:Review tenant health without
+accessing restricted business data;
+stop
+@enduml
+
+
+@startuml
+title 25. Tenant Configuration
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant Admin|
+start
+:Open tenant settings;
+:Configure work schedules,
+leave policies, payroll rules,
+and preferences;
+:Save changes;
+
+|System|
+:Validate configuration;
+if (Configuration valid?) then (No)
+  :Show conflicts and errors;
+  |Tenant Admin|
+  :Correct settings;
+else (Yes)
+  :Version configuration;
+  :Apply effective dates;
+  :Notify affected users;
+endif
+
+|HR / Payroll Staff|
+:Use updated tenant rules;
+stop
+@enduml
+
+
+@startuml
+title 26A. Employee Experience - Announcements
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create company announcement;
+:Select audience and publish date;
+:Publish announcement;
+
+|System|
+:Deliver announcement;
+:Send notifications;
+:Track read status;
+
+|Employee|
+:Read announcement;
+:Acknowledge or comment;
+
+|HR Staff|
+:View reach and acknowledgment metrics;
+stop
+@enduml
+
+
+@startuml
+title 26B. Employee Engagement - Survey and Feedback
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create engagement survey;
+:Choose anonymous or identified mode;
+:Send survey;
+
+|Employee|
+:Complete survey;
+:Submit feedback;
+
+|System|
+:Store responses;
+:Aggregate engagement metrics;
+:Protect anonymity where configured;
+
+|HR / Management|
+:Review trends and concerns;
+:Create follow-up action plan;
+stop
+@enduml
+
+
+@startuml
+title 27A. Compensation Planning - Review Cycle
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR / Compensation Admin|
+start
+:Create compensation cycle;
+:Set budget, eligibility,
+and review guidelines;
+
+|System|
+:Load employee compensation data;
+:Allocate manager budgets;
+
+|Manager|
+:Review employee performance and pay;
+:Propose salary adjustments;
+
+|System|
+:Validate budget and policy limits;
+if (Outside limits?) then (Yes)
+  :Flag exception;
+  |Manager|
+  :Revise proposal or add justification;
+endif
+
+|HR / Compensation Admin|
+:Review submitted proposals;
+stop
+@enduml
+
+
+@startuml
+title 27B. Compensation Planning - Approval and Total Rewards
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR / Compensation Admin|
+start
+:Submit compensation plan for approval;
+
+|Executive / Finance Approver|
+:Review budget and adjustments;
+if (Approve?) then (No)
+  :Return plan for revision;
+  |HR / Compensation Admin|
+  :Revise plan;
+else (Yes)
+  :Approve compensation plan;
+  |System|
+  :Apply approved salary changes;
+  :Generate total rewards statements;
+  :Notify employees on effective date;
+  |Employee|
+  :View total rewards statement;
+endif
+stop
+@enduml
+
+
+@startuml
+title 28A. Productivity Monitoring - Collect Activity
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work session;
+
+|Desktop / Mobile Agent|
+:Collect active and idle time;
+:Collect keyboard/mouse activity level;
+:Associate activity with current task;
+:Send activity events;
+
+|System|
+:Aggregate activity intervals;
+:Calculate utilization and workload metrics;
+:Apply privacy and retention settings;
+
+|Employee|
+:View personal activity summary;
+stop
+@enduml
+
+
+@startuml
+title 28B. Productivity Monitoring - Manager Review
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open team productivity dashboard;
+
+|System|
+:Check manager scope;
+:Display active time, idle time,
+utilization, and trends;
+
+|Manager|
+:Compare workload patterns;
+if (Potential issue?) then (Yes)
+  :Review supporting context;
+  :Discuss issue with employee;
+  |Employee|
+  :Provide context or correction;
+  |Manager|
+  :Record follow-up action;
+endif
+stop
+@enduml
+
+
+@startuml
+title 29A. Screenshot Tracking - Capture and Privacy
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work;
+
+|Tracking Agent|
+:Wait for configured interval;
+:Capture work screenshot;
+
+|System|
+:Apply privacy rules;
+if (Blur enabled?) then (Yes)
+  :Blur screenshot;
+endif
+:Associate screenshot with employee,
+project, task, and timestamp;
+:Store encrypted screenshot;
+
+|Third-Party Storage Service|
+:Return storage reference;
+
+|System|
+:Save evidence metadata;
+stop
+@enduml
+
+
+@startuml
+title 29B. App and URL Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work;
+
+|Tracking Agent|
+:Detect active application;
+:Detect active website domain;
+:Record usage duration;
+:Send usage event;
+
+|System|
+:Apply allowlist, blocklist,
+and privacy exclusions;
+:Associate usage with project and task;
+:Aggregate app and website usage;
+
+|Employee|
+:View personal usage evidence;
+|Manager|
+:View authorized team usage summary;
+stop
+@enduml
+
+
+@startuml
+title 29C. Screenshot Review and Deletion
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open team activity timeline;
+
+|System|
+:Check access scope;
+:Load screenshots and activity evidence;
+
+|Manager|
+:Review screenshot;
+if (Delete permitted?) then (Yes)
+  :Request screenshot deletion;
+  |System|
+  :Record deletion reason;
+  :Delete stored screenshot;
+  |Third-Party Storage Service|
+  :Confirm deletion;
+  |System|
+  :Update audit trail;
+endif
+
+|Employee|
+:View personal evidence according
+to tenant privacy policy;
+stop
+@enduml

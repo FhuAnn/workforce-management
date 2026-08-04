@@ -524,33 +524,104 @@ The following features are ordered by business impact and represent the core val
 |  23 | Workforce Reporting and Export           | High     | Generate and export payroll, attendance, timesheet, leave, project, and employee reports.              |
 |  24 | Tenant Management                        | High     | Create and manage organizations while keeping each tenant’s users and business data isolated.          |
 |  25 | Tenant Configuration                     | High     | Manage tenant-specific work schedules, leave policies, payroll settings, and system preferences.       |
-|  26 | User Account Management                  | High     | Create, activate, deactivate, update, and manage user accounts within a tenant.                        |
-|  27 | Authentication                           | High     | Support login, logout, password reset, account verification, access tokens, and refresh tokens.        |
-|  28 | Role and Permission Management           | High     | Define roles and permissions for System Admin, Tenant Admin, HR, Payroll Staff, Manager, and Employee. |
-|  29 | Notifications and Reminders              | High     | Notify users about payslips, approvals, assigned tasks, leave requests, deadlines, and system events.  |
-|  30 | Recruitment, Onboarding, and Performance | Medium   | Manage candidates, onboarding activities, employee goals, reviews, feedback, and performance ratings.  |
-                 |
+|  26 | Employee Experience and Engagement      | High   | Publish company announcements, collect employee feedback, run satisfaction surveys, and monitor employee wellbeing and engagement.          |
+|  27 | Compensation Planning and Total Rewards | High   | Plan salary adjustments, benchmark compensation, manage compensation cycles, budgets, approvals, and employee total rewards statements.     |
+|  28 | Productivity and Activity Monitoring    | High   | Track activity levels, active and idle time, workload patterns, utilization, and productivity trends during recorded work sessions.         |
+|  29 | Screenshot, App, and URL Tracking       | High   | Capture optional work screenshots and record applications and websites used while employees track time, with configurable privacy controls. |
 
-## II. Usecase (20):
-### II.1. Project And Time Tracking
-![alt text](workforce-management/docs/usecases/uc01-project-and-time-tracking/uc01-project-and-time-tracking.png) 
-### II.2. Payroll Processing
-![alt text](workforce-management/docs/usecases/uc02-payroll-processing/uc02-payroll-processing.png) 
-### II.3. Payslip Management
-![alt text](workforce-management/docs/usecases/uc03-payslip-management/uc03-payslip-management.png) 
-### II.4. Clock in/Clock out
-![alt text](workforce-management/docs/usecases/uc04-clock-in-or-out/uc04-clock-in-or-out.png) 
-### II.5. Break tracking
-![alt text](workforce-management/docs/usecases/uc05-break-tracking/uc05-break-tracking.png) 
-### II.6. Attendance record management
-![alt text](workforce-management/docs/usecases/uc-06-attendance-record-management/uc-06-attendance-record-management.png) 
-### II.7 Overtime management
-![alt text](workforce-management/docs/usecases/uc-07-overtime-management/uc-07-overtime-management.png) 
-### II.8 Timesheet management
-![alt text](workforce-management/docs/usecases/uc-08-timesheet-management/uc-08-timesheet-management.png) 
-### II.9 Time review and approval
-![alt text](workforce-management/docs/usecases/uc-09-time-review-and-approval/uc-09-time-review-and-approval.png) 
-### II.10 Onboarding management 
-![alt text](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
-### II.11 Employment Lifecycle Management
+
+## II. Use Case Images
+
+### Core Time, Attendance, and Leave
+
+### 1. Project and Time Tracking
+![Project and Time Tracking](workforce-management/docs/usecases/uc01-project-and-time-tracking/uc01-project-and-time-tracking.png)
+
+### 2. Payroll Processing
+![Payroll Processing](workforce-management/docs/usecases/uc02-payroll-processing/uc02-payroll-processing.png)
+
+### 3. Payslip Management
+![Payslip Management](workforce-management/docs/usecases/uc03-payslip-management/uc03-payslip-management.png)
+
+### 4. Clock In / Clock Out
+![Clock In / Clock Out](workforce-management/docs/usecases/uc04-clock-in-or-out/uc04-clock-in-or-out.png)
+
+### 5. Break Tracking
+![Break Tracking](workforce-management/docs/usecases/uc05-break-tracking/uc05-break-tracking.png)
+
+### 6. Attendance Record Management
+![Attendance Record Management](workforce-management/docs/usecases/uc-06-attendance-record-management/uc-06-attendance-record-management.png)
+
+### 7. Overtime Management
+![Overtime Management](workforce-management/docs/usecases/uc-07-overtime-management/uc-07-overtime-management.png)
+
+### 8. Timesheet Management
+![Timesheet Management](workforce-management/docs/usecases/uc-08-timesheet-management/uc-08-timesheet-management.png)
+
+### 9. Time Review and Approval
+![Time Review and Approval](workforce-management/docs/usecases/uc-09-time-review-and-approval/uc-09-time-review-and-approval.png)
+
+### 10. Onsite Work Location Management
+![Onsite Work Location Management](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
+
+### 11. Employment Lifecycle Management
+![Employment Lifecycle Management](workforce-management/docs/usecases/uc-11-employement-liftcycle-management/uc-11-employement-liftcycle-management.png)
+
+### 12. Leave Request Management
+![Leave Request Management](workforce-management/docs/usecases/uc-12-leave-request-management/uc-12-leave-request-management.png)
+
+### 13. Leave Balance Management
+![Leave Balance Management](workforce-management/docs/usecases/uc-13-leave-balance-management/uc-13-leave-balance-management.png)
+
+### 14. Leave Approval
+![Leave Approval](workforce-management/docs/usecases/uc-14-leave-approval/uc-14-leave-approval.png)
+
+### Project, Task, and Productivity
+
+### 15. Project Management
+![Project Management](workforce-management/docs/usecases/uc-15-project-management/uc-15-project-management.png)
+
+### 16. Project Member Management
+![Project Member Management](workforce-management/docs/usecases/uc-16-project-member-management/uc-16-project-member-management.png)
+
+### 17. Task Management
+![Task Management](workforce-management/docs/usecases/uc-17-task-management/uc-17-task-management.png)
+
+### 18. Task Progress Management
+![Task Progress Management](workforce-management/docs/usecases/uc-18-task-progress-mangament/uc-18-task-progress-mangament.png)
+
+### 19. Department Management
+![Department Management](workforce-management/docs/usecases/uc-19-department-management/uc-19-department-management.png)
+
+### 20. Position Management
+![Position Management](workforce-management/docs/usecases/uc-20-position-management/uc-20-position-management.png)
+
+### 21. Team and Reporting Line Management
+![Team and Reporting Line Management](workforce-management/docs/usecases/uc-21-team-report-line-management/uc-21-team-report-line-management.png)
+
+### Administration, Reporting, and Tenant
+
+### 22. Workforce Dashboard
+![Workforce Dashboard](workforce-management/docs/usecases/uc-22-workforce-dashboard/uc-22-workforce-dashboard.png)
+
+### 23. Workforce Reporting and Export
+![Workforce Reporting and Export](workforce-management/docs/usecases/uc-23-workforce-reporting-export/uc-23-workforce-reporting-export.png)
+
+### 24. Tenant Management
+![Tenant Management](workforce-management/docs/usecases/uc-24-tenant-management/uc-24-tenant-management.png)
+
+### 25. Tenant Configuration
+![Tenant Configuration](workforce-management/docs/usecases/uc-25-tenant-configuration/uc-25-tenant-configuration.png)
+
+### 26. Employment Engagement
+![Employment Engagement](workforce-management/docs/usecases/uc-26-employment-engagement/uc-26-employment-engagement.png)
+
+### 27. Compensation Plan and Total Rewards
+![Compensation Plan and Total Rewards](workforce-management/docs/usecases/uc-27-compensation-plan-totalward/uc-27-compensation-plan-totalward.png)
+
+### 28. Productivity and Activity Monitoring
+![Productivity and Activity Monitoring](workforce-management/docs/usecases/uc-28-productivity-activity-monitoring/uc-28-productivity-activity-monitoring.png)
+
+### 29. Screenshot, App, and URL Tracking
+![Screenshot, App, and URL Tracking](workforce-management/docs/usecases/uc-29-screenshot-app-url-tracking/uc-29-screenshot-app-url-tracking.png)
 
