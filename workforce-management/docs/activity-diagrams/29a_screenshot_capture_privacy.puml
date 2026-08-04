@@ -1,0 +1,38 @@
+@startuml
+title 29A. Screenshot Tracking - Capture and Privacy
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work;
+
+|Tracking Agent|
+:Wait for configured interval;
+:Capture work screenshot;
+
+|System|
+:Apply privacy rules;
+if (Blur enabled?) then (Yes)
+  :Blur screenshot;
+endif
+:Associate screenshot with employee,
+project, task, and timestamp;
+:Store encrypted screenshot;
+
+|Third-Party Storage Service|
+:Return storage reference;
+
+|System|
+:Save evidence metadata;
+stop
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title 2B. Payroll Processing - Approval and Payment
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Submit payroll draft;
+
+|Finance Manager|
+:Review totals and exceptions;
+if (Approve payroll?) then (No)
+  :Reject with comments;
+  |Payroll Staff|
+  :Correct payroll draft;
+else (Yes)
+  :Approve payroll;
+  |System|
+  :Lock payroll period;
+  :Generate payment instructions;
+  |Bank / Payment Provider|
+  :Process salary payments;
+  :Return payment status;
+  |System|
+  :Update payment results;
+  |Payroll Staff|
+  :Review failed payments;
+endif
+stop
+@enduml

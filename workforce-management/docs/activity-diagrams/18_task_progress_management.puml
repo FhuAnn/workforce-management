@@ -1,0 +1,43 @@
+@startuml
+title 18. Task Progress Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Open assigned task;
+:Update status and completion percentage;
+:Add progress note;
+
+|System|
+:Save progress;
+:Compare progress with deadline;
+if (Overdue or blocked?) then (Yes)
+  :Flag task;
+  :Notify manager;
+endif
+
+|Manager|
+:Review task dashboard;
+if (Intervention needed?) then (Yes)
+  :Change deadline, priority,
+or assignment;
+  |System|
+  :Notify employee;
+endif
+
+|Employee|
+:Mark task complete;
+|Manager|
+:Verify completion;
+stop
+@enduml

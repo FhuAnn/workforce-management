@@ -1,0 +1,40 @@
+@startuml
+title 29C. Screenshot Review and Deletion
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open team activity timeline;
+
+|System|
+:Check access scope;
+:Load screenshots and activity evidence;
+
+|Manager|
+:Review screenshot;
+if (Delete permitted?) then (Yes)
+  :Request screenshot deletion;
+  |System|
+  :Record deletion reason;
+  :Delete stored screenshot;
+  |Third-Party Storage Service|
+  :Confirm deletion;
+  |System|
+  :Update audit trail;
+endif
+
+|Employee|
+:View personal evidence according
+to tenant privacy policy;
+stop
+@enduml

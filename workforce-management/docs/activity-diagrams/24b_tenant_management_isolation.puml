@@ -1,0 +1,36 @@
+@startuml
+title 24B. Tenant Management - Data Isolation
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant User|
+start
+:Send application request;
+
+|System|
+:Authenticate user;
+:Resolve tenant context;
+:Apply tenant data filter;
+:Check role permissions;
+
+if (Access allowed?) then (Yes)
+  :Read or modify tenant-owned data;
+  :Write tenant-scoped audit log;
+else (No)
+  :Reject cross-tenant or unauthorized access;
+endif
+
+|System Admin|
+:Review tenant health without
+accessing restricted business data;
+stop
+@enduml

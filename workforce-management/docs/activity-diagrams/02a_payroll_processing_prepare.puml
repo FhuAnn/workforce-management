@@ -1,0 +1,42 @@
+@startuml
+title 2A. Payroll Processing - Prepare Payroll
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Select payroll period;
+:Start payroll calculation;
+
+|System|
+:Load employee contracts;
+:Load approved timesheets;
+:Load overtime, leave, allowances,
+and deductions;
+:Validate payroll inputs;
+
+if (Validation errors?) then (Yes)
+  :Generate error list;
+  |Payroll Staff|
+  :Correct payroll data;
+  :Run validation again;
+else (No)
+  :Calculate gross earnings;
+  :Calculate deductions and taxes;
+  :Calculate net salary;
+  :Create payroll draft;
+endif
+
+|Payroll Staff|
+:Review payroll draft;
+stop
+@enduml

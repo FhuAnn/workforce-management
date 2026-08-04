@@ -1,0 +1,39 @@
+@startuml
+title 20. Position Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create job position;
+:Define title, responsibilities,
+level, and status;
+
+|System|
+:Validate position data;
+:Create position;
+
+|HR Staff|
+:Assign employees to position;
+:Update position details;
+
+if (Deactivate position?) then (Yes)
+  |System|
+  :Check active employee assignments;
+  if (Assignments exist?) then (Yes)
+    :Require reassignment first;
+  else (No)
+    :Deactivate position;
+  endif
+endif
+stop
+@enduml

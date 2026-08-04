@@ -1,0 +1,40 @@
+@startuml
+title 27A. Compensation Planning - Review Cycle
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR / Compensation Admin|
+start
+:Create compensation cycle;
+:Set budget, eligibility,
+and review guidelines;
+
+|System|
+:Load employee compensation data;
+:Allocate manager budgets;
+
+|Manager|
+:Review employee performance and pay;
+:Propose salary adjustments;
+
+|System|
+:Validate budget and policy limits;
+if (Outside limits?) then (Yes)
+  :Flag exception;
+  |Manager|
+  :Revise proposal or add justification;
+endif
+
+|HR / Compensation Admin|
+:Review submitted proposals;
+stop
+@enduml

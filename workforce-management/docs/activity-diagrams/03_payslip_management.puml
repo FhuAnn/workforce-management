@@ -1,0 +1,38 @@
+@startuml
+title 3. Payslip Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Payroll Staff|
+start
+:Select approved payroll;
+:Generate payslips;
+
+|System|
+:Create employee payslip documents;
+:Apply tenant template;
+:Publish payslips;
+:Send notification;
+
+|Employee|
+:Open payslip;
+:View earnings and deductions;
+if (Download?) then (Yes)
+  :Download PDF;
+endif
+if (Raise question?) then (Yes)
+  :Submit payroll inquiry;
+  |Payroll Staff|
+  :Review and respond;
+endif
+stop
+@enduml

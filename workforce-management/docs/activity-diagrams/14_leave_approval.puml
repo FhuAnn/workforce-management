@@ -1,0 +1,37 @@
+@startuml
+title 14. Leave Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager / HR Approver|
+start
+:Open pending leave request;
+
+|System|
+:Show employee balance,
+team calendar, and policy checks;
+
+|Manager / HR Approver|
+:Review business impact;
+if (Approve?) then (Yes)
+  :Approve request;
+  |System|
+  :Reserve leave balance;
+  :Update attendance calendar;
+  :Notify employee and team;
+else (No)
+  :Reject with reason;
+  |System|
+  :Notify employee;
+endif
+stop
+@enduml

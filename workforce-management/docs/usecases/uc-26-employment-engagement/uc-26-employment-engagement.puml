@@ -1,0 +1,105 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+actor Manager
+actor "HR Staff" as HR
+
+rectangle "Employee Experience and Engagement" {
+
+    usecase "View Company\nAnnouncements" as UC_ViewAnnouncements
+    usecase "React to\nAnnouncement" as UC_React
+    usecase "Submit Employee\nFeedback" as UC_SubmitFeedback
+    usecase "Complete Engagement\nSurvey" as UC_CompleteSurvey
+    usecase "Complete Wellbeing\nCheck-In" as UC_WellbeingCheckIn
+
+    usecase "Publish Company\nAnnouncement" as UC_PublishAnnouncement
+    usecase "Create Engagement\nSurvey" as UC_CreateSurvey
+    usecase "Schedule Survey" as UC_ScheduleSurvey
+    usecase "Manage Survey\nQuestions" as UC_ManageQuestions
+
+    usecase "View Engagement\nResults" as UC_ViewResults
+    usecase "Analyze Employee\nSentiment" as UC_AnalyzeSentiment
+    usecase "Calculate eNPS" as UC_CalculateENPS
+    usecase "View Wellbeing\nTrends" as UC_ViewWellbeing
+    usecase "Create Engagement\nAction Plan" as UC_ActionPlan
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+Staff -- UC_ViewAnnouncements
+Staff -- UC_SubmitFeedback
+Staff -- UC_CompleteSurvey
+Staff -- UC_WellbeingCheckIn
+
+Manager -- UC_ViewResults
+Manager -- UC_ViewWellbeing
+Manager -- UC_ActionPlan
+
+UC_PublishAnnouncement -- HR
+UC_CreateSurvey -- HR
+UC_ViewResults -- HR
+UC_ViewWellbeing -- HR
+UC_ActionPlan -- HR
+
+' =====================================================
+' EMPLOYEE INTERACTIONS
+' =====================================================
+
+UC_React ..> UC_ViewAnnouncements : <<extend>>
+
+' =====================================================
+' SURVEY MANAGEMENT
+' =====================================================
+
+UC_CreateSurvey ..> UC_ManageQuestions : <<include>>
+UC_ScheduleSurvey ..> UC_CreateSurvey : <<extend>>
+
+' =====================================================
+' ENGAGEMENT ANALYSIS
+' =====================================================
+
+UC_ViewResults ..> UC_AnalyzeSentiment : <<include>>
+UC_ViewResults ..> UC_CalculateENPS : <<include>>
+
+UC_ViewWellbeing ..> UC_WellbeingCheckIn : <<include>>
+UC_ActionPlan ..> UC_ViewResults : <<include>>
+UC_ActionPlan ..> UC_ViewWellbeing : <<include>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+Staff -[hidden]right-> UC_ViewAnnouncements
+
+UC_ViewAnnouncements -[hidden]down-> UC_SubmitFeedback
+UC_SubmitFeedback -[hidden]down-> UC_CompleteSurvey
+UC_CompleteSurvey -[hidden]down-> UC_WellbeingCheckIn
+
+UC_PublishAnnouncement -[hidden]down-> UC_CreateSurvey
+UC_CreateSurvey -[hidden]down-> UC_ViewResults
+UC_ViewResults -[hidden]down-> UC_ViewWellbeing
+UC_ViewWellbeing -[hidden]down-> UC_ActionPlan
+
+UC_ViewResults -[hidden]right-> Manager
+UC_PublishAnnouncement -[hidden]right-> HR
+
+@enduml

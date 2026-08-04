@@ -1,0 +1,38 @@
+@startuml
+title 7A. Overtime Management - Request and Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Create overtime request;
+:Enter date, hours, and reason;
+:Submit request;
+
+|System|
+:Validate schedule and limits;
+:Notify manager;
+
+|Manager|
+:Review overtime request;
+if (Approve?) then (Yes)
+  :Approve request;
+  |System|
+  :Mark overtime as approved;
+  :Notify employee;
+else (No)
+  :Reject with reason;
+  |System|
+  :Notify employee;
+endif
+stop
+@enduml

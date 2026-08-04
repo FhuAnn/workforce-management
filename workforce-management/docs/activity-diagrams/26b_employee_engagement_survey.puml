@@ -1,0 +1,34 @@
+@startuml
+title 26B. Employee Engagement - Survey and Feedback
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create engagement survey;
+:Choose anonymous or identified mode;
+:Send survey;
+
+|Employee|
+:Complete survey;
+:Submit feedback;
+
+|System|
+:Store responses;
+:Aggregate engagement metrics;
+:Protect anonymity where configured;
+
+|HR / Management|
+:Review trends and concerns;
+:Create follow-up action plan;
+stop
+@enduml

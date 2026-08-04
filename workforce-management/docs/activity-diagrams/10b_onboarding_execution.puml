@@ -1,0 +1,39 @@
+@startuml
+title 10B. Onboarding Management - Complete Onboarding
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|New Employee|
+start
+:Open onboarding portal;
+:Complete personal information;
+:Upload required documents;
+:Complete assigned training;
+
+|System|
+:Validate required fields;
+:Track checklist progress;
+
+|HR Staff|
+:Review documents;
+if (Requirements complete?) then (No)
+  :Request missing information;
+  |New Employee|
+  :Provide missing information;
+else (Yes)
+  :Mark onboarding complete;
+  |System|
+  :Activate employee profile;
+  :Notify manager and employee;
+endif
+stop
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+title 12. Leave Request Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Select leave type and dates;
+:Enter reason and attachment;
+:Submit leave request;
+
+|System|
+:Check overlapping requests;
+:Check leave policy and balance;
+if (Request valid?) then (No)
+  :Show validation errors;
+  |Employee|
+  :Correct request;
+else (Yes)
+  :Create pending request;
+  :Notify approver;
+endif
+
+|Employee|
+if (Update or cancel before approval?) then (Yes)
+  :Edit or cancel request;
+  |System|
+  :Update request and notify approver;
+endif
+stop
+@enduml

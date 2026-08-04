@@ -1,0 +1,35 @@
+@startuml
+title 28B. Productivity Monitoring - Manager Review
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open team productivity dashboard;
+
+|System|
+:Check manager scope;
+:Display active time, idle time,
+utilization, and trends;
+
+|Manager|
+:Compare workload patterns;
+if (Potential issue?) then (Yes)
+  :Review supporting context;
+  :Discuss issue with employee;
+  |Employee|
+  :Provide context or correction;
+  |Manager|
+  :Record follow-up action;
+endif
+stop
+@enduml

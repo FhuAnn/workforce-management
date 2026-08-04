@@ -1,0 +1,88 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "Tenant Admin" as TenantAdmin
+actor "HR Staff" as HR
+actor "Payroll Staff" as PayrollStaff
+actor Manager
+actor Client
+
+rectangle "Workforce Reporting and Export" {
+    usecase "Generate Employee Report" as UC_EmployeeReport
+    usecase "Generate Attendance Report" as UC_AttendanceReport
+    usecase "Generate Timesheet Report" as UC_TimesheetReport
+    usecase "Generate Leave Report" as UC_LeaveReport
+    usecase "Generate Payroll Report" as UC_PayrollReport
+    usecase "Generate Project Report" as UC_ProjectReport
+    usecase "Generate Productivity Report" as UC_ProductivityReport
+
+    usecase "Filter Report Data" as UC_Filter
+    usecase "Select Report Period" as UC_Period
+    usecase "Preview Report" as UC_Preview
+    usecase "Export as CSV" as UC_CSV
+    usecase "Export as Excel" as UC_Excel
+    usecase "Export as PDF" as UC_PDF
+    usecase "View Client Project Report" as UC_ClientReport
+}
+
+TenantAdmin -- UC_EmployeeReport
+TenantAdmin -- UC_AttendanceReport
+TenantAdmin -- UC_PayrollReport
+TenantAdmin -- UC_ProjectReport
+
+HR -- UC_EmployeeReport
+HR -- UC_AttendanceReport
+HR -- UC_LeaveReport
+
+PayrollStaff -- UC_PayrollReport
+
+Manager -- UC_TimesheetReport
+Manager -- UC_ProjectReport
+Manager -- UC_ProductivityReport
+
+Client -- UC_ClientReport
+
+UC_EmployeeReport ..> UC_Filter : <<include>>
+UC_AttendanceReport ..> UC_Filter : <<include>>
+UC_TimesheetReport ..> UC_Filter : <<include>>
+UC_LeaveReport ..> UC_Filter : <<include>>
+UC_PayrollReport ..> UC_Filter : <<include>>
+UC_ProjectReport ..> UC_Filter : <<include>>
+
+UC_Filter ..> UC_Period : <<include>>
+UC_Preview ..> UC_Filter : <<include>>
+
+UC_CSV ..> UC_Preview : <<extend>>
+UC_Excel ..> UC_Preview : <<extend>>
+UC_PDF ..> UC_Preview : <<extend>>
+
+UC_ClientReport ..> UC_ProjectReport : <<include>>
+
+TenantAdmin -[hidden]right-> UC_EmployeeReport
+
+UC_EmployeeReport -[hidden]down-> UC_AttendanceReport
+UC_AttendanceReport -[hidden]down-> UC_TimesheetReport
+UC_TimesheetReport -[hidden]down-> UC_LeaveReport
+
+UC_PayrollReport -[hidden]down-> UC_ProjectReport
+UC_ProjectReport -[hidden]down-> UC_ProductivityReport
+
+UC_Filter -[hidden]down-> UC_Preview
+UC_Preview -[hidden]down-> UC_CSV
+UC_CSV -[hidden]down-> UC_Excel
+UC_Excel -[hidden]down-> UC_PDF
+
+
+@enduml

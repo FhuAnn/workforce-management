@@ -1,0 +1,33 @@
+@startuml
+title 26A. Employee Experience - Announcements
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create company announcement;
+:Select audience and publish date;
+:Publish announcement;
+
+|System|
+:Deliver announcement;
+:Send notifications;
+:Track read status;
+
+|Employee|
+:Read announcement;
+:Acknowledge or comment;
+
+|HR Staff|
+:View reach and acknowledgment metrics;
+stop
+@enduml

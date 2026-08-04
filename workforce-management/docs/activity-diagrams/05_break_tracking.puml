@@ -1,0 +1,37 @@
+@startuml
+title 5. Break Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start break;
+
+|System|
+:Verify active work session;
+:Create break record;
+:Pause productive time;
+
+|Employee|
+:Take break;
+:End break;
+
+|System|
+:Record break end time;
+:Calculate break duration;
+:Resume productive time;
+:Update attendance totals;
+
+|Manager|
+:View break summary;
+stop
+@enduml

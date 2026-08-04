@@ -1,0 +1,82 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "Tenant Admin" as TenantAdmin
+actor "HR Staff" as HR
+actor "Payroll Staff" as PayrollStaff
+
+rectangle "Tenant Configuration" {
+    usecase "Configure Organization Profile" as UC_Profile
+    usecase "Configure Work Schedule" as UC_WorkSchedule
+    usecase "Configure Working Days" as UC_WorkingDays
+    usecase "Configure Public Holidays" as UC_Holidays
+
+    usecase "Configure Leave Policies" as UC_LeavePolicy
+    usecase "Configure Attendance Rules" as UC_AttendanceRules
+    usecase "Configure Overtime Rules" as UC_OvertimeRules
+
+    usecase "Configure Payroll Settings" as UC_PayrollSettings
+    usecase "Configure Salary Period" as UC_SalaryPeriod
+    usecase "Configure Payslip Template" as UC_PayslipTemplate
+
+    usecase "Configure Notification Preferences" as UC_Notifications
+    usecase "Configure Time Zone and Locale" as UC_Locale
+    usecase "Restore Default Configuration" as UC_Restore
+}
+
+TenantAdmin -- UC_Profile
+TenantAdmin -- UC_WorkSchedule
+TenantAdmin -- UC_LeavePolicy
+TenantAdmin -- UC_AttendanceRules
+TenantAdmin -- UC_OvertimeRules
+TenantAdmin -- UC_PayrollSettings
+TenantAdmin -- UC_Notifications
+TenantAdmin -- UC_Locale
+TenantAdmin -- UC_Restore
+
+HR -- UC_WorkSchedule
+HR -- UC_Holidays
+HR -- UC_LeavePolicy
+HR -- UC_AttendanceRules
+
+PayrollStaff -- UC_OvertimeRules
+PayrollStaff -- UC_PayrollSettings
+PayrollStaff -- UC_SalaryPeriod
+PayrollStaff -- UC_PayslipTemplate
+
+UC_WorkSchedule ..> UC_WorkingDays : <<include>>
+UC_WorkSchedule ..> UC_Holidays : <<include>>
+
+UC_PayrollSettings ..> UC_SalaryPeriod : <<include>>
+UC_PayrollSettings ..> UC_PayslipTemplate : <<include>>
+
+UC_Restore ..> UC_Profile : <<extend>>
+
+TenantAdmin -[hidden]right-> UC_Profile
+
+UC_Profile -[hidden]down-> UC_WorkSchedule
+UC_WorkSchedule -[hidden]down-> UC_LeavePolicy
+UC_LeavePolicy -[hidden]down-> UC_AttendanceRules
+UC_AttendanceRules -[hidden]down-> UC_OvertimeRules
+
+UC_PayrollSettings -[hidden]down-> UC_Notifications
+UC_Notifications -[hidden]down-> UC_Locale
+UC_Locale -[hidden]down-> UC_Restore
+
+UC_Holidays -[hidden]right-> HR
+UC_PayslipTemplate -[hidden]right-> PayrollStaff
+
+
+@enduml

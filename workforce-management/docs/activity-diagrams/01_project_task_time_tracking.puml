@@ -1,0 +1,41 @@
+@startuml
+title 1. Project and Task Time Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Select project and task;
+:Start timer;
+
+|System|
+:Create active time session;
+:Track elapsed and idle time;
+
+|Employee|
+if (Switch task?) then (Yes)
+  :Select another task;
+  |System|
+  :Stop current task segment;
+  :Start new task segment;
+endif
+:Stop timer;
+
+|System|
+:Calculate tracked duration;
+:Attach time to employee, project, and task;
+:Update timesheet;
+
+|Manager|
+:View project and task time summary;
+stop
+@enduml

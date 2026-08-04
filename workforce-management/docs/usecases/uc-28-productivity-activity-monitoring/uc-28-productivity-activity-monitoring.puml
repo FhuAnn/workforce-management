@@ -1,0 +1,114 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+actor Manager
+actor "Tenant Admin" as TenantAdmin
+
+rectangle "Productivity and Activity Monitoring" {
+
+    usecase "View Personal\nActivity" as UC_ViewPersonal
+    usecase "View Personal\nProductivity Trends" as UC_ViewPersonalTrends
+
+    usecase "Record Active Time" as UC_RecordActive
+    usecase "Record Idle Time" as UC_RecordIdle
+    usecase "Calculate Activity Level" as UC_CalculateActivity
+    usecase "Associate Activity with\nProject and Task" as UC_AssociateWork
+
+    usecase "View Team Activity" as UC_ViewTeam
+    usecase "View Employee\nActivity Details" as UC_ViewEmployee
+    usecase "View Productivity\nTrends" as UC_ViewTrends
+    usecase "View Workload and\nUtilization" as UC_ViewUtilization
+    usecase "Detect Unusual\nActivity" as UC_DetectUnusual
+
+    usecase "Configure Activity\nMonitoring Rules" as UC_ConfigureRules
+    usecase "Configure Idle Time\nThreshold" as UC_IdleThreshold
+    usecase "Enable Activity\nMonitoring" as UC_EnableMonitoring
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+Staff -- UC_ViewPersonal
+Staff -- UC_ViewPersonalTrends
+
+UC_ViewTeam -- Manager
+UC_ViewEmployee -- Manager
+UC_ViewTrends -- Manager
+UC_ViewUtilization -- Manager
+UC_DetectUnusual -- Manager
+
+UC_ConfigureRules -- TenantAdmin
+UC_EnableMonitoring -- TenantAdmin
+
+' =====================================================
+' ACTIVITY RECORDING
+' =====================================================
+
+UC_RecordIdle ..> UC_RecordActive : <<extend>>
+
+UC_CalculateActivity ..> UC_RecordActive : <<include>>
+UC_CalculateActivity ..> UC_RecordIdle : <<include>>
+
+UC_AssociateWork ..> UC_RecordActive : <<include>>
+
+' =====================================================
+' PERSONAL AND TEAM ANALYTICS
+' =====================================================
+
+UC_ViewPersonal ..> UC_CalculateActivity : <<include>>
+UC_ViewPersonalTrends ..> UC_ViewPersonal : <<include>>
+
+UC_ViewTeam ..> UC_CalculateActivity : <<include>>
+UC_ViewEmployee ..> UC_ViewTeam : <<include>>
+UC_ViewTrends ..> UC_ViewTeam : <<include>>
+UC_ViewUtilization ..> UC_ViewTeam : <<include>>
+UC_DetectUnusual ..> UC_ViewEmployee : <<include>>
+
+' =====================================================
+' MONITORING CONFIGURATION
+' =====================================================
+
+UC_ConfigureRules ..> UC_IdleThreshold : <<include>>
+UC_EnableMonitoring ..> UC_ConfigureRules : <<include>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+Staff -[hidden]right-> UC_ViewPersonal
+
+UC_ViewPersonal -[hidden]down-> UC_ViewPersonalTrends
+
+UC_RecordActive -[hidden]down-> UC_RecordIdle
+UC_RecordIdle -[hidden]down-> UC_CalculateActivity
+UC_CalculateActivity -[hidden]down-> UC_AssociateWork
+
+UC_ViewTeam -[hidden]down-> UC_ViewEmployee
+UC_ViewEmployee -[hidden]down-> UC_ViewTrends
+UC_ViewTrends -[hidden]down-> UC_ViewUtilization
+UC_ViewUtilization -[hidden]down-> UC_DetectUnusual
+
+UC_ViewTeam -[hidden]right-> Manager
+UC_ConfigureRules -[hidden]right-> TenantAdmin
+
+Manager -[hidden]down-> TenantAdmin
+
+@enduml

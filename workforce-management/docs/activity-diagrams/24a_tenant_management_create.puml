@@ -1,0 +1,31 @@
+@startuml
+title 24A. Tenant Management - Create Organization
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System Admin|
+start
+:Create tenant;
+:Enter organization details;
+:Assign tenant administrator;
+
+|System|
+:Validate tenant identifier;
+:Create isolated tenant workspace;
+:Create default roles and settings;
+:Send activation invitation;
+
+|Tenant Admin|
+:Activate account;
+:Access tenant workspace;
+stop
+@enduml

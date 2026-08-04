@@ -1,0 +1,127 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "HR Staff" as HR
+actor "Tenant Admin" as TenantAdmin
+actor Manager
+actor Staff
+
+rectangle "Compensation Planning and Total Rewards" {
+
+    usecase "Create Compensation\nCycle" as UC_CreateCycle
+    usecase "Define Compensation\nBudget" as UC_DefineBudget
+    usecase "Define Eligibility\nRules" as UC_DefineEligibility
+    usecase "Configure Approval\nWorkflow" as UC_ConfigureWorkflow
+
+    usecase "Review Employee\nCompensation" as UC_ReviewCompensation
+    usecase "View Salary\nBenchmark" as UC_ViewBenchmark
+    usecase "Propose Salary\nAdjustment" as UC_ProposeAdjustment
+    usecase "Add Adjustment\nJustification" as UC_AddJustification
+
+    usecase "Review Compensation\nProposal" as UC_ReviewProposal
+    usecase "Approve Compensation\nAdjustment" as UC_ApproveAdjustment
+    usecase "Reject Compensation\nAdjustment" as UC_RejectAdjustment
+    usecase "Request Proposal\nCorrection" as UC_RequestCorrection
+
+    usecase "Generate Total Rewards\nStatement" as UC_GenerateStatement
+    usecase "View Personal Total\nRewards" as UC_ViewRewards
+    usecase "View Compensation\nHistory" as UC_ViewHistory
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+HR -- UC_CreateCycle
+HR -- UC_DefineBudget
+HR -- UC_DefineEligibility
+HR -- UC_ReviewCompensation
+HR -- UC_ViewBenchmark
+HR -- UC_ReviewProposal
+HR -- UC_GenerateStatement
+
+TenantAdmin -- UC_DefineBudget
+TenantAdmin -- UC_ConfigureWorkflow
+TenantAdmin -- UC_ApproveAdjustment
+TenantAdmin -- UC_RejectAdjustment
+
+Manager -- UC_ReviewCompensation
+Manager -- UC_ProposeAdjustment
+Manager -- UC_ReviewProposal
+
+UC_ViewRewards -- Staff
+UC_ViewHistory -- Staff
+
+' =====================================================
+' COMPENSATION CYCLE SETUP
+' =====================================================
+
+UC_CreateCycle ..> UC_DefineBudget : <<include>>
+UC_CreateCycle ..> UC_DefineEligibility : <<include>>
+UC_CreateCycle ..> UC_ConfigureWorkflow : <<include>>
+
+' =====================================================
+' SALARY ADJUSTMENT
+' =====================================================
+
+UC_ReviewCompensation ..> UC_ViewBenchmark : <<include>>
+
+UC_ProposeAdjustment ..> UC_ReviewCompensation : <<include>>
+UC_ProposeAdjustment ..> UC_AddJustification : <<include>>
+
+' =====================================================
+' REVIEW AND APPROVAL
+' =====================================================
+
+UC_ReviewProposal ..> UC_ProposeAdjustment : <<include>>
+
+UC_ApproveAdjustment ..> UC_ReviewProposal : <<include>>
+UC_RejectAdjustment ..> UC_ReviewProposal : <<include>>
+UC_RequestCorrection ..> UC_ReviewProposal : <<extend>>
+
+' =====================================================
+' TOTAL REWARDS
+' =====================================================
+
+UC_GenerateStatement ..> UC_ApproveAdjustment : <<include>>
+UC_ViewRewards ..> UC_GenerateStatement : <<include>>
+UC_ViewHistory ..> UC_ViewRewards : <<extend>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+HR -[hidden]right-> UC_CreateCycle
+
+UC_CreateCycle -[hidden]down-> UC_DefineBudget
+UC_DefineBudget -[hidden]down-> UC_ReviewCompensation
+UC_ReviewCompensation -[hidden]down-> UC_ProposeAdjustment
+
+UC_ReviewProposal -[hidden]down-> UC_ApproveAdjustment
+UC_ApproveAdjustment -[hidden]down-> UC_RejectAdjustment
+UC_RejectAdjustment -[hidden]down-> UC_GenerateStatement
+
+UC_ConfigureWorkflow -[hidden]right-> TenantAdmin
+UC_ProposeAdjustment -[hidden]right-> Manager
+UC_ViewRewards -[hidden]right-> Staff
+
+TenantAdmin -[hidden]down-> Manager
+Manager -[hidden]down-> Staff
+
+@enduml

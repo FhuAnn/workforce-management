@@ -1,0 +1,106 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 25
+skinparam ranksep 35
+skinparam packageStyle rectangle
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+actor Manager
+actor "Tenant Admin" as TenantAdmin
+actor "Third-Party\nStorage Service" as StorageService
+
+rectangle "Screenshot, App, and URL Tracking" {
+
+    package "Personal Activity" {
+        usecase "View Personal\nActivity" as UC_ViewPersonal
+        usecase "View Personal\nScreenshots" as UC_ViewPersonalScreenshots
+    }
+
+    package "Activity Tracking" {
+        usecase "Capture\nScreenshot" as UC_CaptureScreenshot
+        usecase "Blur\nScreenshot" as UC_BlurScreenshot
+        usecase "Record App\nUsage" as UC_RecordApp
+        usecase "Record Website\nUsage" as UC_RecordWebsite
+        usecase "Associate with\nProject / Task" as UC_AssociateEvidence
+        usecase "Store\nScreenshot" as UC_StoreScreenshot
+    }
+
+    package "Tracking Configuration" {
+        usecase "Configure Screenshot\nTracking" as UC_ConfigureScreenshots
+        usecase "Set Screenshot\nFrequency" as UC_SetFrequency
+        usecase "Configure Screenshot\nPrivacy" as UC_ConfigurePrivacy
+        usecase "Configure App and\nURL Tracking" as UC_ConfigureAppUrl
+    }
+    package "Team Monitoring" {
+        usecase "View Team\nScreenshots" as UC_ViewTeamScreenshots
+        usecase "View App\nUsage" as UC_ViewAppUsage
+        usecase "View Website\nUsage" as UC_ViewWebsiteUsage
+        usecase "Review Activity\nTimeline" as UC_ReviewTimeline
+        usecase "Delete\nScreenshot" as UC_DeleteScreenshot
+    }
+
+}
+
+' Actor associations
+Staff -- UC_ViewPersonal
+Staff -- UC_ViewPersonalScreenshots
+
+Manager -- UC_ViewTeamScreenshots
+Manager -- UC_ViewAppUsage
+Manager -- UC_ViewWebsiteUsage
+Manager -- UC_ReviewTimeline
+Manager -- UC_DeleteScreenshot
+
+TenantAdmin -- UC_ConfigureScreenshots
+TenantAdmin -- UC_ConfigurePrivacy
+TenantAdmin -- UC_ConfigureAppUrl
+
+StorageService -- UC_StoreScreenshot
+
+' Screenshot tracking
+UC_CaptureScreenshot ..> UC_StoreScreenshot : <<include>>
+UC_CaptureScreenshot ..> UC_AssociateEvidence : <<include>>
+UC_BlurScreenshot ..> UC_CaptureScreenshot : <<extend>>
+
+' App and website tracking
+UC_RecordApp ..> UC_AssociateEvidence : <<include>>
+UC_RecordWebsite ..> UC_AssociateEvidence : <<include>>
+
+' Activity viewing
+UC_ViewPersonalScreenshots ..> UC_ViewPersonal : <<extend>>
+
+UC_ReviewTimeline ..> UC_ViewTeamScreenshots : <<include>>
+UC_ReviewTimeline ..> UC_ViewAppUsage : <<include>>
+UC_ReviewTimeline ..> UC_ViewWebsiteUsage : <<include>>
+
+UC_DeleteScreenshot ..> UC_ViewTeamScreenshots : <<extend>>
+
+' Configuration
+UC_ConfigureScreenshots ..> UC_SetFrequency : <<include>>
+UC_ConfigureScreenshots ..> UC_ConfigurePrivacy : <<include>>
+
+' Compact layout
+Staff -[hidden]right-> UC_ViewPersonal
+UC_ViewPersonal -[hidden]right-> UC_CaptureScreenshot
+UC_CaptureScreenshot -[hidden]right-> UC_ViewTeamScreenshots
+UC_ViewTeamScreenshots -[hidden]right-> UC_ConfigureScreenshots
+
+UC_ViewTeamScreenshots -[hidden]right-> Manager
+UC_ConfigureScreenshots -[hidden]right-> TenantAdmin
+UC_StoreScreenshot -[hidden]right-> StorageService
+
+@enduml

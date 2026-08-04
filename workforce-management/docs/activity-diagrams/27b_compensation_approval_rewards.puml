@@ -1,0 +1,35 @@
+@startuml
+title 27B. Compensation Planning - Approval and Total Rewards
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR / Compensation Admin|
+start
+:Submit compensation plan for approval;
+
+|Executive / Finance Approver|
+:Review budget and adjustments;
+if (Approve?) then (No)
+  :Return plan for revision;
+  |HR / Compensation Admin|
+  :Revise plan;
+else (Yes)
+  :Approve compensation plan;
+  |System|
+  :Apply approved salary changes;
+  :Generate total rewards statements;
+  :Notify employees on effective date;
+  |Employee|
+  :View total rewards statement;
+endif
+stop
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+title 7B. Overtime Management - Validation and Pay
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Work approved overtime;
+:Clock out;
+
+|System|
+:Calculate actual overtime hours;
+:Compare actual and approved hours;
+
+|Manager|
+:Validate overtime record;
+if (Correction needed?) then (Yes)
+  :Request correction;
+  |Employee|
+  :Update record;
+  |Manager|
+  :Approve corrected record;
+endif
+
+|Payroll Staff|
+:Load approved overtime;
+|System|
+:Calculate overtime pay;
+:Add overtime amount to payroll;
+stop
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+title 10A. Onboarding Management - Prepare New Hire
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create employee onboarding record;
+:Assign position, department,
+manager, and start date;
+:Select onboarding template;
+:Assign documents and tasks;
+
+|System|
+:Create onboarding checklist;
+:Notify employee and task owners;
+
+|Manager|
+:Review assigned onboarding tasks;
+:Prepare team introduction and equipment;
+stop
+@enduml

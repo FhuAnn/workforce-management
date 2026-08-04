@@ -1,0 +1,38 @@
+@startuml
+title 21. Team and Reporting Line Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Create team;
+:Assign team manager;
+:Add employees;
+
+|System|
+:Validate reporting relationships;
+if (Circular reporting line?) then (Yes)
+  :Reject configuration;
+  |HR Staff|
+  :Correct manager assignment;
+else (No)
+  :Save team structure;
+  :Update approval routes;
+endif
+
+|Manager|
+:View direct and indirect reports;
+
+|Employee|
+:View manager and team members;
+stop
+@enduml

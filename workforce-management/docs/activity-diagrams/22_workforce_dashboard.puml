@@ -1,0 +1,38 @@
+@startuml
+title 22. Workforce Dashboard
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|User|
+start
+:Open workforce dashboard;
+
+|System|
+:Identify user role;
+:Load permitted KPIs;
+:Aggregate attendance, payroll,
+leave, project, and task data;
+:Display role-specific widgets;
+
+|User|
+:Apply date and organization filters;
+|System|
+:Refresh dashboard;
+
+|User|
+if (Open detail?) then (Yes)
+  :Select KPI or alert;
+  |System|
+  :Navigate to detailed records;
+endif
+stop
+@enduml

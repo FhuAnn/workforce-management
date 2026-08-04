@@ -1,0 +1,38 @@
+@startuml
+title 16. Project Member Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Open project members;
+:Select employee;
+:Assign project role,
+permissions, and dates;
+
+|System|
+:Validate employee availability;
+:Add employee to project;
+:Notify employee;
+
+|Employee|
+:Access assigned project and tasks;
+
+|Project Manager|
+if (Remove or change member?) then (Yes)
+  :Update role or remove member;
+  |System|
+  :Update access and assignments;
+  :Notify employee;
+endif
+stop
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+title 9. Timesheet Review and Approval
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager|
+start
+:Open submitted timesheet;
+
+|System|
+:Show totals, projects, tasks,
+and exceptions;
+
+|Manager|
+:Review entries;
+if (Timesheet valid?) then (Yes)
+  :Approve timesheet;
+  |System|
+  :Lock approved entries;
+  :Send data to payroll;
+  :Notify employee;
+else (No)
+  if (Correction possible?) then (Yes)
+    :Request correction with comments;
+    |System|
+    :Return timesheet to employee;
+    |Employee|
+    :Correct and resubmit;
+  else (No)
+    :Reject timesheet;
+    |System|
+    :Notify employee;
+  endif
+endif
+stop
+@enduml

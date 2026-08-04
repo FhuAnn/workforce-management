@@ -1,0 +1,73 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "System Admin" as SystemAdmin
+actor "Tenant Admin" as TenantAdmin
+
+rectangle "Tenant Management" {
+    usecase "Create Tenant" as UC_Create
+    usecase "View Tenant" as UC_View
+    usecase "Update Tenant Information" as UC_Update
+    usecase "Activate Tenant" as UC_Activate
+    usecase "Suspend Tenant" as UC_Suspend
+    usecase "Deactivate Tenant" as UC_Deactivate
+
+    usecase "Assign Tenant Admin" as UC_AssignAdmin
+    usecase "Manage Tenant Subscription" as UC_Subscription
+    usecase "Set Tenant Data Boundary" as UC_DataBoundary
+    usecase "View Tenant Usage" as UC_Usage
+    usecase "View Tenant Status" as UC_Status
+}
+
+SystemAdmin -- UC_Create
+SystemAdmin -- UC_View
+SystemAdmin -- UC_Update
+SystemAdmin -- UC_Activate
+SystemAdmin -- UC_Suspend
+SystemAdmin -- UC_Deactivate
+SystemAdmin -- UC_AssignAdmin
+SystemAdmin -- UC_Subscription
+SystemAdmin -- UC_Usage
+
+TenantAdmin -- UC_View
+TenantAdmin -- UC_Status
+
+UC_Create ..> UC_AssignAdmin : <<include>>
+UC_Create ..> UC_DataBoundary : <<include>>
+UC_Create ..> UC_Subscription : <<include>>
+
+UC_Update ..> UC_View : <<include>>
+UC_Activate ..> UC_View : <<include>>
+UC_Suspend ..> UC_View : <<include>>
+UC_Deactivate ..> UC_View : <<include>>
+
+UC_Status ..> UC_View : <<include>>
+UC_Usage ..> UC_View : <<include>>
+
+SystemAdmin -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Activate
+UC_Activate -[hidden]down-> UC_Suspend
+UC_Suspend -[hidden]down-> UC_Deactivate
+
+UC_AssignAdmin -[hidden]down-> UC_Subscription
+UC_Subscription -[hidden]down-> UC_DataBoundary
+UC_DataBoundary -[hidden]down-> UC_Usage
+
+UC_Status -[hidden]right-> TenantAdmin
+
+@enduml

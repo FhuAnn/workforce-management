@@ -1,0 +1,39 @@
+@startuml
+title 4. Clock In / Clock Out
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Choose Clock In;
+
+|System|
+:Check active session;
+:Validate schedule and location;
+if (Allowed?) then (No)
+  :Reject clock-in and show reason;
+  stop
+else (Yes)
+  :Create work session;
+  :Record clock-in time;
+endif
+
+|Employee|
+:Perform work;
+:Choose Clock Out;
+
+|System|
+:Record clock-out time;
+:Calculate session duration;
+:Update attendance and timesheet;
+stop
+@enduml

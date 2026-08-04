@@ -1,0 +1,37 @@
+@startuml
+title 8. Timesheet Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System|
+start
+:Collect tracked time, manual entries,
+breaks, and overtime;
+:Group time by day, week,
+project, and task;
+:Calculate regular and billable hours;
+
+|Employee|
+:Open weekly timesheet;
+:Review entries;
+if (Missing time?) then (Yes)
+  :Add or edit manual entry;
+  |System|
+  :Recalculate totals;
+endif
+:Submit timesheet;
+
+|System|
+:Change status to Submitted;
+:Notify manager;
+stop
+@enduml

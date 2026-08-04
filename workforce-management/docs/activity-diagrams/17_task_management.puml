@@ -1,0 +1,39 @@
+@startuml
+title 17. Task Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Create task;
+:Enter title, priority,
+deadline, and estimate;
+:Assign employee;
+
+|System|
+:Create task;
+:Notify assignee;
+
+|Employee|
+:Open task;
+:Update task details or comments;
+:Record work;
+
+|Project Manager|
+:Review task;
+if (Reassign or reprioritize?) then (Yes)
+  :Update assignment or priority;
+  |System|
+  :Notify affected employee;
+endif
+stop
+@enduml

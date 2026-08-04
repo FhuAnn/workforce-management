@@ -1,0 +1,41 @@
+@startuml
+title 6. Attendance Record Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|System|
+start
+:Collect clock sessions, breaks,
+leave, and schedule data;
+:Build daily attendance record;
+:Calculate worked hours;
+:Determine attendance status;
+
+if (Anomaly detected?) then (Yes)
+  :Mark missing clock, late arrival,
+early leave, or absence;
+  |Employee|
+  :Submit attendance correction;
+  |Manager|
+  :Review correction;
+  if (Approve?) then (Yes)
+    |System|
+    :Update attendance record;
+  else (No)
+    :Keep original record;
+  endif
+endif
+
+|HR Staff|
+:Review attendance register;
+stop
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title 13. Leave Balance Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Configure leave entitlement rules;
+
+|System|
+:Allocate employee leave balance;
+:Apply accrual schedule;
+
+|Employee|
+:Submit approved leave usage;
+
+|System|
+:Deduct used leave;
+:Recalculate remaining balance;
+
+|HR Staff|
+if (Manual adjustment needed?) then (Yes)
+  :Enter adjustment and reason;
+  |System|
+  :Record audit entry;
+  :Update balance;
+endif
+
+|Employee|
+:View entitlement, used,
+and remaining leave;
+stop
+@enduml

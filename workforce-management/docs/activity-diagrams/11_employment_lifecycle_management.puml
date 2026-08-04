@@ -1,0 +1,40 @@
+@startuml
+title 11. Employment Lifecycle Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|HR Staff|
+start
+:Select employee;
+:Choose lifecycle action;
+
+if (Onboard / Activate?) then (Onboard)
+  :Set employment start and status;
+elseif (Transfer?) then (Transfer)
+  :Change department, position,
+or manager;
+elseif (Suspend?) then (Suspend)
+  :Enter suspension period and reason;
+else (Terminate)
+  :Enter last working date and reason;
+endif
+
+|System|
+:Validate effective date;
+:Update employment history;
+:Apply access and payroll changes;
+:Notify affected stakeholders;
+
+|Manager|
+:Review updated employee status;
+stop
+@enduml

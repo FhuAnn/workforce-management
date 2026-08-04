@@ -1,0 +1,39 @@
+@startuml
+title 19. Department Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant Admin / HR|
+start
+:Create department;
+:Enter name and description;
+:Assign department manager;
+
+|System|
+:Validate unique department name;
+:Create department;
+:Grant manager visibility;
+
+|HR Staff|
+:Assign employees to department;
+
+|Department Manager|
+:View department members;
+
+|Tenant Admin / HR|
+if (Update or deactivate?) then (Yes)
+  :Change department details or status;
+  |System|
+  :Update organization structure;
+endif
+stop
+@enduml

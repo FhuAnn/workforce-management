@@ -1,0 +1,35 @@
+@startuml
+title 23. Workforce Reporting and Export
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Manager / HR / Payroll Staff|
+start
+:Select report type;
+:Set date range and filters;
+:Run report;
+
+|System|
+:Check data access permissions;
+:Aggregate report data;
+:Display preview;
+
+|Manager / HR / Payroll Staff|
+if (Export?) then (Yes)
+  :Choose CSV, Excel, or PDF;
+  |System|
+  :Generate export file;
+  :Record export audit log;
+  :Provide download;
+endif
+stop
+@enduml

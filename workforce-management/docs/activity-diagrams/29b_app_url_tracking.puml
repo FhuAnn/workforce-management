@@ -1,0 +1,36 @@
+@startuml
+title 29B. App and URL Tracking
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work;
+
+|Tracking Agent|
+:Detect active application;
+:Detect active website domain;
+:Record usage duration;
+:Send usage event;
+
+|System|
+:Apply allowlist, blocklist,
+and privacy exclusions;
+:Associate usage with project and task;
+:Aggregate app and website usage;
+
+|Employee|
+:View personal usage evidence;
+|Manager|
+:View authorized team usage summary;
+stop
+@enduml

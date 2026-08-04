@@ -1,0 +1,90 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "Tenant Admin" as TenantAdmin
+actor "HR Staff" as HR
+actor "Payroll Staff" as PayrollStaff
+actor Manager
+actor Staff
+
+rectangle "Workforce Dashboard" {
+    usecase "View Organization Summary" as UC_Organization
+    usecase "View Employee Summary" as UC_Employee
+    usecase "View Attendance Summary" as UC_Attendance
+    usecase "View Leave Summary" as UC_Leave
+    usecase "View Payroll Summary" as UC_Payroll
+    usecase "View Project Summary" as UC_Project
+    usecase "View Task Summary" as UC_Task
+
+    usecase "View Pending Approvals" as UC_Approvals
+    usecase "View Alerts and Reminders" as UC_Alerts
+    usecase "Filter Dashboard Data" as UC_Filter
+    usecase "View Personal Dashboard" as UC_Personal
+    usecase "View Team Dashboard" as UC_Team
+}
+
+TenantAdmin -- UC_Organization
+TenantAdmin -- UC_Employee
+TenantAdmin -- UC_Attendance
+TenantAdmin -- UC_Leave
+TenantAdmin -- UC_Payroll
+TenantAdmin -- UC_Project
+
+HR -- UC_Employee
+HR -- UC_Attendance
+HR -- UC_Leave
+HR -- UC_Approvals
+
+PayrollStaff -- UC_Payroll
+PayrollStaff -- UC_Approvals
+
+Manager -- UC_Team
+Manager -- UC_Project
+Manager -- UC_Task
+Manager -- UC_Approvals
+
+Staff -- UC_Personal
+Staff -- UC_Alerts
+
+UC_Organization ..> UC_Employee : <<include>>
+UC_Team ..> UC_Attendance : <<include>>
+UC_Team ..> UC_Leave : <<include>>
+UC_Team ..> UC_Task : <<include>>
+
+UC_Personal ..> UC_Attendance : <<include>>
+UC_Personal ..> UC_Leave : <<include>>
+UC_Personal ..> UC_Task : <<include>>
+
+UC_Filter ..> UC_Organization : <<extend>>
+UC_Filter ..> UC_Team : <<extend>>
+UC_Filter ..> UC_Personal : <<extend>>
+
+TenantAdmin -[hidden]right-> UC_Organization
+UC_Personal -[hidden]right-> Staff
+
+UC_Organization -[hidden]down-> UC_Employee
+UC_Employee -[hidden]down-> UC_Attendance
+UC_Attendance -[hidden]down-> UC_Leave
+UC_Leave -[hidden]down-> UC_Payroll
+
+UC_Project -[hidden]down-> UC_Task
+UC_Task -[hidden]down-> UC_Approvals
+UC_Approvals -[hidden]down-> UC_Alerts
+
+HR -[hidden]down-> PayrollStaff
+PayrollStaff -[hidden]down-> Manager
+Manager -[hidden]down-> Staff
+
+@enduml

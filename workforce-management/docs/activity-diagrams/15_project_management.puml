@@ -1,0 +1,41 @@
+@startuml
+title 15. Project Management
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Project Manager|
+start
+:Create project;
+:Enter name, client, dates,
+budget, and description;
+
+|System|
+:Validate project data;
+:Create active project;
+
+|Project Manager|
+:Update project status and details;
+if (Archive project?) then (Yes)
+  :Request archive;
+  |System|
+  :Check open tasks and active timers;
+  if (Archive allowed?) then (Yes)
+    :Archive project;
+  else (No)
+    :Show blocking items;
+  endif
+endif
+
+|Management|
+:View project portfolio;
+stop
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+title 25. Tenant Configuration
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Tenant Admin|
+start
+:Open tenant settings;
+:Configure work schedules,
+leave policies, payroll rules,
+and preferences;
+:Save changes;
+
+|System|
+:Validate configuration;
+if (Configuration valid?) then (No)
+  :Show conflicts and errors;
+  |Tenant Admin|
+  :Correct settings;
+else (Yes)
+  :Version configuration;
+  :Apply effective dates;
+  :Notify affected users;
+endif
+
+|HR / Payroll Staff|
+:Use updated tenant rules;
+stop
+@enduml

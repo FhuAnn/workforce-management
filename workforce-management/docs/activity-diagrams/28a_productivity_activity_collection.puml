@@ -1,0 +1,33 @@
+@startuml
+title 28A. Productivity Monitoring - Collect Activity
+skinparam shadowing false
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #546E7A
+  ArrowColor #607D8B
+  DiamondBackgroundColor #ECEFF1
+  DiamondBorderColor #546E7A
+}
+skinparam partition {
+  BackgroundColor #FAFAFA
+  BorderColor #90A4AE
+}
+|Employee|
+start
+:Start tracked work session;
+
+|Desktop / Mobile Agent|
+:Collect active and idle time;
+:Collect keyboard/mouse activity level;
+:Associate activity with current task;
+:Send activity events;
+
+|System|
+:Aggregate activity intervals;
+:Calculate utilization and workload metrics;
+:Apply privacy and retention settings;
+
+|Employee|
+:View personal activity summary;
+stop
+@enduml
