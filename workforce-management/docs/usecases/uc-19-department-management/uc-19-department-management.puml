@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor "HR Staff" as HR
+actor "Tenant Admin" as TenantAdmin
+actor Manager
+
+rectangle "Department Management" {
+    usecase "Create Department" as UC_Create
+    usecase "View Department" as UC_View
+    usecase "Update Department" as UC_Update
+    usecase "Deactivate Department" as UC_Deactivate
+
+    usecase "Assign Department Manager" as UC_AssignManager
+    usecase "Add Employee to Department" as UC_AddEmployee
+    usecase "Transfer Employee Between Departments" as UC_Transfer
+
+    usecase "View Department Members" as UC_ViewMembers
+    usecase "View Department Structure" as UC_ViewStructure
+    usecase "Approve Department Change" as UC_ApproveChange
+}
+
+HR -- UC_Create
+HR -- UC_View
+HR -- UC_Update
+HR -- UC_Deactivate
+HR -- UC_AssignManager
+HR -- UC_AddEmployee
+HR -- UC_Transfer
+HR -- UC_ViewMembers
+HR -- UC_ViewStructure
+
+UC_ApproveChange -- TenantAdmin
+
+UC_ViewMembers -- Manager
+UC_ViewStructure -- Manager
+
+UC_Update ..> UC_View : <<include>>
+UC_Deactivate ..> UC_View : <<include>>
+
+UC_AssignManager ..> UC_View : <<include>>
+UC_AddEmployee ..> UC_ViewMembers : <<include>>
+UC_Transfer ..> UC_ViewMembers : <<include>>
+
+UC_Deactivate ..> UC_ApproveChange : <<include>>
+UC_ViewStructure ..> UC_ViewMembers : <<include>>
+
+HR -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Deactivate
+
+UC_AssignManager -[hidden]down-> UC_AddEmployee
+UC_AddEmployee -[hidden]down-> UC_Transfer
+
+UC_ApproveChange -[hidden]right-> TenantAdmin
+UC_ViewMembers -[hidden]right-> Manager
+
+TenantAdmin -[hidden]down-> Manager
+
+@enduml

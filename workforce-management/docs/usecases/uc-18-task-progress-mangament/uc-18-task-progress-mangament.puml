@@ -1,0 +1,70 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor Staff
+actor Client
+actor Manager
+
+rectangle "Task Progress Management" {
+    usecase "Update Task Status" as UC_UpdateStatus
+    usecase "Update Completion Percentage" as UC_UpdatePercentage
+    usecase "Mark Task Complete" as UC_Complete
+
+    usecase "View Task Progress" as UC_ViewProgress
+    usecase "View Task Deadline" as UC_ViewDeadline
+    usecase "Detect Overdue Task" as UC_DetectOverdue
+
+    usecase "Add Progress Comment" as UC_AddComment
+    usecase "Submit Work Result" as UC_SubmitResult
+
+    usecase "Review Task Progress" as UC_ReviewProgress
+    usecase "Reopen Task" as UC_Reopen
+    usecase "View Project Progress Summary" as UC_ProjectSummary
+}
+
+Staff -- UC_UpdateStatus
+Staff -- UC_UpdatePercentage
+Staff -- UC_Complete
+Staff -- UC_ViewProgress
+Staff -- UC_AddComment
+Staff -- UC_SubmitResult
+
+UC_ReviewProgress -- Manager
+UC_Reopen -- Manager
+UC_ProjectSummary -- Manager
+
+UC_ProjectSummary -- Client
+
+UC_UpdateStatus ..> UC_ViewProgress : <<include>>
+UC_UpdatePercentage ..> UC_ViewProgress : <<include>>
+
+UC_Complete ..> UC_UpdatePercentage : <<include>>
+UC_Complete ..> UC_SubmitResult : <<include>>
+
+UC_DetectOverdue ..> UC_ViewDeadline : <<include>>
+UC_ReviewProgress ..> UC_ViewProgress : <<include>>
+UC_ReviewProgress ..> UC_DetectOverdue : <<include>>
+
+UC_Reopen ..> UC_ReviewProgress : <<extend>>
+UC_ProjectSummary ..> UC_ReviewProgress : <<include>>
+
+Staff -[hidden]right-> UC_UpdateStatus
+
+UC_UpdateStatus -[hidden]down-> UC_UpdatePercentage
+UC_UpdatePercentage -[hidden]down-> UC_Complete
+UC_Complete -[hidden]down-> UC_SubmitResult
+
+UC_ViewProgress -[hidden]down-> UC_ViewDeadline
+UC_ViewDeadline -[hidden]down-> UC_DetectOverdue
+
+UC_ReviewProgress -[hidden]right-> Manager
+UC_ProjectSummary -[hidden]right-> Client
+
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+
+rectangle "Leave Request Management" {
+    usecase "Create Leave Request" as UC_Create
+    usecase "Select Leave Type" as UC_SelectType
+    usecase "Select Leave Dates" as UC_SelectDates
+    usecase "Enter Leave Reason" as UC_EnterReason
+    usecase "Attach Supporting Document" as UC_AttachDocument
+
+    usecase "Check Leave Balance" as UC_CheckBalance
+    usecase "Check Date Conflict" as UC_CheckConflict
+    usecase "Calculate Requested Days" as UC_CalculateDays
+
+    usecase "View Leave Request" as UC_View
+    usecase "Update Leave Request" as UC_Update
+    usecase "Cancel Leave Request" as UC_Cancel
+    usecase "View Leave Request Status" as UC_ViewStatus
+    usecase "View Leave Request History" as UC_ViewHistory
+}
+
+Staff -- UC_Create
+Staff -- UC_View
+Staff -- UC_Update
+Staff -- UC_Cancel
+Staff -- UC_ViewStatus
+Staff -- UC_ViewHistory
+
+UC_Create ..> UC_SelectType : <<include>>
+UC_Create ..> UC_SelectDates : <<include>>
+UC_Create ..> UC_EnterReason : <<include>>
+UC_Create ..> UC_CheckBalance : <<include>>
+UC_Create ..> UC_CheckConflict : <<include>>
+UC_Create ..> UC_CalculateDays : <<include>>
+
+UC_AttachDocument ..> UC_Create : <<extend>>
+UC_Update ..> UC_View : <<extend>>
+UC_Cancel ..> UC_View : <<extend>>
+
+Staff -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Cancel
+UC_Cancel -[hidden]down-> UC_ViewStatus
+UC_ViewStatus -[hidden]down-> UC_ViewHistory
+
+UC_SelectType -[hidden]down-> UC_SelectDates
+UC_SelectDates -[hidden]down-> UC_CheckBalance
+UC_CheckBalance -[hidden]down-> UC_CheckConflict
+UC_CheckConflict -[hidden]down-> UC_CalculateDays
+
+@enduml

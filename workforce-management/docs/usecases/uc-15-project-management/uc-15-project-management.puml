@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor Manager
+actor "Tenant Admin" as TenantAdmin
+actor Client
+
+rectangle "Project Management" {
+    usecase "Create Project" as UC_Create
+    usecase "View Project" as UC_View
+    usecase "Update Project" as UC_Update
+    usecase "Archive Project" as UC_Archive
+
+    usecase "Define Project Schedule" as UC_Schedule
+    usecase "Set Project Status" as UC_Status
+    usecase "Set Project Budget" as UC_Budget
+    usecase "Track Project Progress" as UC_Progress
+
+    usecase "View Project Timeline" as UC_Timeline
+    usecase "View Project Summary" as UC_Summary
+}
+
+Manager -- UC_Create
+Manager -- UC_View
+Manager -- UC_Update
+Manager -- UC_Archive
+Manager -- UC_Schedule
+Manager -- UC_Status
+Manager -- UC_Budget
+Manager -- UC_Progress
+
+TenantAdmin -- UC_View
+TenantAdmin -- UC_Archive
+TenantAdmin -- UC_Summary
+
+UC_Timeline -- Client
+UC_Summary -- Client
+
+UC_Create ..> UC_Schedule : <<include>>
+UC_Create ..> UC_Status : <<include>>
+
+UC_Update ..> UC_View : <<include>>
+UC_Archive ..> UC_View : <<include>>
+
+UC_Progress ..> UC_Status : <<include>>
+UC_Timeline ..> UC_Schedule : <<include>>
+UC_Summary ..> UC_Progress : <<include>>
+
+Manager -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Archive
+
+UC_Schedule -[hidden]down-> UC_Status
+UC_Status -[hidden]down-> UC_Budget
+UC_Budget -[hidden]down-> UC_Progress
+
+UC_Timeline -[hidden]right-> Client
+UC_Summary -[hidden]right-> TenantAdmin
+
+@enduml

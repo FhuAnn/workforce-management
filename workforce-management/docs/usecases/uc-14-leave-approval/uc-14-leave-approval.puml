@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Manager
+actor "HR Staff" as HR
+actor Staff
+
+rectangle "Leave Approval" {
+    usecase "View Pending Leave Requests" as UC_ViewPending
+    usecase "Review Leave Request" as UC_Review
+    usecase "View Employee Leave Balance" as UC_ViewBalance
+    usecase "View Team Leave Calendar" as UC_ViewCalendar
+    usecase "Check Schedule Conflict" as UC_CheckConflict
+
+    usecase "Approve Leave Request" as UC_Approve
+    usecase "Reject Leave Request" as UC_Reject
+    usecase "Request Leave Correction" as UC_RequestCorrection
+    usecase "Add Approval Comment" as UC_AddComment
+
+    usecase "Update Leave Balance" as UC_UpdateBalance
+    usecase "Update Team Calendar" as UC_UpdateCalendar
+    usecase "View Approval Decision" as UC_ViewDecision
+    usecase "Correct and Resubmit Request" as UC_Resubmit
+
+    usecase "Override Approval Decision" as UC_Override
+}
+
+Manager -- UC_ViewPending
+Manager -- UC_Review
+Manager -- UC_Approve
+Manager -- UC_Reject
+Manager -- UC_RequestCorrection
+Manager -- UC_AddComment
+
+HR -- UC_ViewPending
+HR -- UC_Review
+HR -- UC_Approve
+HR -- UC_Reject
+HR -- UC_Override
+
+UC_ViewDecision -- Staff
+UC_Resubmit -- Staff
+
+UC_Review ..> UC_ViewPending : <<include>>
+UC_Review ..> UC_ViewBalance : <<include>>
+UC_Review ..> UC_ViewCalendar : <<include>>
+UC_Review ..> UC_CheckConflict : <<include>>
+
+UC_Approve ..> UC_Review : <<include>>
+UC_Approve ..> UC_UpdateBalance : <<include>>
+UC_Approve ..> UC_UpdateCalendar : <<include>>
+
+UC_Reject ..> UC_Review : <<include>>
+UC_Reject ..> UC_AddComment : <<include>>
+
+UC_RequestCorrection ..> UC_Review : <<include>>
+UC_RequestCorrection ..> UC_AddComment : <<include>>
+
+UC_Resubmit ..> UC_RequestCorrection : <<extend>>
+UC_Override ..> UC_Approve : <<extend>>
+UC_Override ..> UC_Reject : <<extend>>
+
+Manager -[hidden]right-> UC_ViewPending
+
+UC_ViewPending -[hidden]down-> UC_Review
+UC_Review -[hidden]down-> UC_Approve
+UC_Approve -[hidden]down-> UC_Reject
+UC_Reject -[hidden]down-> UC_RequestCorrection
+
+UC_Override -[hidden]right-> HR
+UC_ViewDecision -[hidden]right-> Staff
+
+HR -[hidden]down-> Staff
+
+@enduml

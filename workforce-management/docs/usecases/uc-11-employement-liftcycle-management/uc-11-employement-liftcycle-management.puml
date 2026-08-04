@@ -1,0 +1,89 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "HR Staff" as HR
+actor Manager
+actor "Tenant Admin" as TenantAdmin
+actor Staff
+
+rectangle "Employment Lifecycle Management" {
+    usecase "Register New Employee" as UC_Register
+    usecase "Start Onboarding" as UC_StartOnboarding
+    usecase "Set Probation Period" as UC_SetProbation
+    usecase "Review Probation" as UC_ReviewProbation
+    usecase "Activate Employment" as UC_Activate
+
+    usecase "Transfer Employee" as UC_Transfer
+    usecase "Change Position" as UC_ChangePosition
+    usecase "Change Department" as UC_ChangeDepartment
+    usecase "Update Reporting Manager" as UC_UpdateManager
+
+    usecase "Suspend Employment" as UC_Suspend
+    usecase "Reinstate Employee" as UC_Reinstate
+    usecase "Terminate Employment" as UC_Terminate
+
+    usecase "Approve Lifecycle Change" as UC_ApproveChange
+    usecase "View Employment History" as UC_ViewHistory
+    usecase "View Employment Status" as UC_ViewStatus
+}
+
+HR -- UC_Register
+HR -- UC_StartOnboarding
+HR -- UC_SetProbation
+HR -- UC_Activate
+HR -- UC_Transfer
+HR -- UC_ChangePosition
+HR -- UC_ChangeDepartment
+HR -- UC_UpdateManager
+HR -- UC_Suspend
+HR -- UC_Reinstate
+HR -- UC_Terminate
+HR -- UC_ViewHistory
+
+UC_ReviewProbation -- Manager
+UC_Transfer -- Manager
+UC_UpdateManager -- Manager
+
+UC_ApproveChange -- TenantAdmin
+
+UC_ViewStatus -- Staff
+UC_ViewHistory -- Staff
+
+UC_StartOnboarding ..> UC_Register : <<include>>
+UC_SetProbation ..> UC_StartOnboarding : <<include>>
+UC_Activate ..> UC_ReviewProbation : <<include>>
+
+UC_Transfer ..> UC_ChangeDepartment : <<include>>
+UC_Transfer ..> UC_ChangePosition : <<extend>>
+UC_Transfer ..> UC_UpdateManager : <<extend>>
+
+UC_Suspend ..> UC_ApproveChange : <<include>>
+UC_Terminate ..> UC_ApproveChange : <<include>>
+UC_Reinstate ..> UC_Suspend : <<extend>>
+
+HR -[hidden]right-> UC_Register
+
+UC_Register -[hidden]down-> UC_StartOnboarding
+UC_StartOnboarding -[hidden]down-> UC_SetProbation
+UC_SetProbation -[hidden]down-> UC_Activate
+UC_Activate -[hidden]down-> UC_Transfer
+UC_Transfer -[hidden]down-> UC_Suspend
+UC_Suspend -[hidden]down-> UC_Terminate
+
+UC_ReviewProbation -[hidden]right-> Manager
+UC_ApproveChange -[hidden]right-> TenantAdmin
+UC_ViewStatus -[hidden]right-> Staff
+
+@enduml

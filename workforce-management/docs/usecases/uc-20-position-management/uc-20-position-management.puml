@@ -1,0 +1,72 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor "HR Staff" as HR
+actor "Tenant Admin" as TenantAdmin
+actor Staff
+
+rectangle "Position Management" {
+    usecase "Create Position" as UC_Create
+    usecase "View Position" as UC_View
+    usecase "Update Position" as UC_Update
+    usecase "Deactivate Position" as UC_Deactivate
+
+    usecase "Define Position Title" as UC_Title
+    usecase "Define Responsibilities" as UC_Responsibilities
+    usecase "Set Position Status" as UC_Status
+    usecase "Assign Position to Department" as UC_AssignDepartment
+
+    usecase "Assign Position to Employee" as UC_AssignEmployee
+    usecase "View Position History" as UC_ViewHistory
+    usecase "View Personal Position" as UC_ViewPersonal
+    usecase "Approve Position Change" as UC_ApproveChange
+}
+
+HR -- UC_Create
+HR -- UC_View
+HR -- UC_Update
+HR -- UC_Deactivate
+HR -- UC_AssignDepartment
+HR -- UC_AssignEmployee
+HR -- UC_ViewHistory
+
+UC_ApproveChange -- TenantAdmin
+
+UC_ViewPersonal -- Staff
+UC_ViewHistory -- Staff
+
+UC_Create ..> UC_Title : <<include>>
+UC_Create ..> UC_Responsibilities : <<include>>
+UC_Create ..> UC_Status : <<include>>
+
+UC_Update ..> UC_View : <<include>>
+UC_Deactivate ..> UC_View : <<include>>
+
+UC_AssignEmployee ..> UC_View : <<include>>
+UC_AssignDepartment ..> UC_View : <<include>>
+
+UC_Deactivate ..> UC_ApproveChange : <<include>>
+UC_AssignEmployee ..> UC_ApproveChange : <<extend>>
+
+HR -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Deactivate
+
+UC_Title -[hidden]down-> UC_Responsibilities
+UC_Responsibilities -[hidden]down-> UC_Status
+UC_Status -[hidden]down-> UC_AssignDepartment
+UC_AssignDepartment -[hidden]down-> UC_AssignEmployee
+
+UC_ApproveChange -[hidden]right-> TenantAdmin
+UC_ViewPersonal -[hidden]right-> Staff
+
+
+@enduml

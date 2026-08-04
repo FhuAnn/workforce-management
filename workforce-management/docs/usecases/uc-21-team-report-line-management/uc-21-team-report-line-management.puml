@@ -1,0 +1,78 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor "HR Staff" as HR
+actor Manager
+actor Staff
+
+rectangle "Team and Reporting Line Management" {
+    usecase "Create Team" as UC_CreateTeam
+    usecase "View Team" as UC_ViewTeam
+    usecase "Update Team" as UC_UpdateTeam
+    usecase "Deactivate Team" as UC_DeactivateTeam
+
+    usecase "Assign Team Manager" as UC_AssignManager
+    usecase "Add Team Member" as UC_AddMember
+    usecase "Remove Team Member" as UC_RemoveMember
+    usecase "Transfer Team Member" as UC_TransferMember
+
+    usecase "Assign Direct Manager" as UC_AssignDirectManager
+    usecase "Update Reporting Line" as UC_UpdateReportingLine
+    usecase "View Organization Hierarchy" as UC_ViewHierarchy
+
+    usecase "View Managed Team" as UC_ViewManagedTeam
+    usecase "View Personal Reporting Line" as UC_ViewPersonalLine
+}
+
+HR -- UC_CreateTeam
+HR -- UC_ViewTeam
+HR -- UC_UpdateTeam
+HR -- UC_DeactivateTeam
+HR -- UC_AssignManager
+HR -- UC_AddMember
+HR -- UC_RemoveMember
+HR -- UC_TransferMember
+HR -- UC_AssignDirectManager
+HR -- UC_UpdateReportingLine
+HR -- UC_ViewHierarchy
+
+UC_ViewManagedTeam -- Manager
+UC_ViewHierarchy -- Manager
+
+UC_ViewPersonalLine -- Staff
+UC_ViewTeam -- Staff
+
+UC_UpdateTeam ..> UC_ViewTeam : <<include>>
+UC_DeactivateTeam ..> UC_ViewTeam : <<include>>
+
+UC_AssignManager ..> UC_ViewTeam : <<include>>
+UC_AddMember ..> UC_ViewTeam : <<include>>
+UC_RemoveMember ..> UC_ViewTeam : <<include>>
+UC_TransferMember ..> UC_ViewTeam : <<include>>
+
+UC_UpdateReportingLine ..> UC_AssignDirectManager : <<include>>
+UC_ViewHierarchy ..> UC_UpdateReportingLine : <<include>>
+UC_ViewManagedTeam ..> UC_ViewTeam : <<include>>
+
+HR -[hidden]right-> UC_CreateTeam
+
+UC_CreateTeam -[hidden]down-> UC_ViewTeam
+UC_ViewTeam -[hidden]down-> UC_UpdateTeam
+UC_UpdateTeam -[hidden]down-> UC_DeactivateTeam
+
+UC_AssignManager -[hidden]down-> UC_AddMember
+UC_AddMember -[hidden]down-> UC_RemoveMember
+UC_RemoveMember -[hidden]down-> UC_TransferMember
+
+UC_AssignDirectManager -[hidden]down-> UC_UpdateReportingLine
+UC_UpdateReportingLine -[hidden]down-> UC_ViewHierarchy
+
+UC_ViewManagedTeam -[hidden]right-> Manager
+
+@enduml

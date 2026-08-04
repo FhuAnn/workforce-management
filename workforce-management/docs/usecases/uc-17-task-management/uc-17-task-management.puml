@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor Manager
+actor Staff
+
+rectangle "Task Management" {
+    usecase "Create Task" as UC_Create
+    usecase "View Task" as UC_View
+    usecase "Update Task" as UC_Update
+    usecase "Delete Task" as UC_Delete
+
+    usecase "Assign Task" as UC_Assign
+    usecase "Set Task Priority" as UC_Priority
+    usecase "Set Task Deadline" as UC_Deadline
+    usecase "Add Task Description" as UC_Description
+
+    usecase "Add Task Comment" as UC_Comment
+    usecase "Attach Task File" as UC_Attach
+    usecase "View Assigned Tasks" as UC_ViewAssigned
+}
+
+Manager -- UC_Create
+Manager -- UC_View
+Manager -- UC_Update
+Manager -- UC_Delete
+Manager -- UC_Assign
+Manager -- UC_Priority
+Manager -- UC_Deadline
+
+UC_ViewAssigned -- Staff
+UC_View -- Staff
+UC_Comment -- Staff
+UC_Attach -- Staff
+
+UC_Create ..> UC_Description : <<include>>
+UC_Create ..> UC_Priority : <<include>>
+UC_Create ..> UC_Deadline : <<include>>
+
+UC_Assign ..> UC_View : <<include>>
+UC_Update ..> UC_View : <<include>>
+UC_Delete ..> UC_View : <<include>>
+
+UC_Comment ..> UC_View : <<extend>>
+UC_Attach ..> UC_View : <<extend>>
+UC_ViewAssigned ..> UC_View : <<include>>
+
+Manager -[hidden]right-> UC_Create
+
+UC_Create -[hidden]down-> UC_View
+UC_View -[hidden]down-> UC_Update
+UC_Update -[hidden]down-> UC_Delete
+
+UC_Assign -[hidden]down-> UC_Priority
+UC_Priority -[hidden]down-> UC_Deadline
+
+UC_ViewAssigned -[hidden]right-> Staff
+
+@enduml

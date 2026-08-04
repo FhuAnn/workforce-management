@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+actor Manager
+actor "HR Staff" as HR
+actor Staff
+
+rectangle "Project Member Management" {
+    usecase "View Project Members" as UC_ViewMembers
+    usecase "Add Project Member" as UC_AddMember
+    usecase "Remove Project Member" as UC_RemoveMember
+
+    usecase "Assign Project Role" as UC_AssignRole
+    usecase "Update Project Role" as UC_UpdateRole
+    usecase "Set Member Responsibilities" as UC_SetResponsibilities
+
+    usecase "Set Member Allocation" as UC_SetAllocation
+    usecase "View Member Availability" as UC_ViewAvailability
+    usecase "View Personal Project Assignment" as UC_ViewAssignment
+}
+
+Manager -- UC_ViewMembers
+Manager -- UC_AddMember
+Manager -- UC_RemoveMember
+Manager -- UC_AssignRole
+Manager -- UC_UpdateRole
+Manager -- UC_SetResponsibilities
+Manager -- UC_SetAllocation
+
+HR -- UC_ViewAvailability
+HR -- UC_ViewMembers
+
+UC_ViewAssignment -- Staff
+
+UC_AddMember ..> UC_ViewAvailability : <<include>>
+UC_AddMember ..> UC_AssignRole : <<include>>
+UC_AddMember ..> UC_SetAllocation : <<include>>
+
+UC_UpdateRole ..> UC_ViewMembers : <<include>>
+UC_RemoveMember ..> UC_ViewMembers : <<include>>
+
+UC_SetResponsibilities ..> UC_AssignRole : <<include>>
+UC_ViewAssignment ..> UC_ViewMembers : <<include>>
+
+Manager -[hidden]right-> UC_AddMember
+
+UC_AddMember -[hidden]down-> UC_ViewMembers
+UC_ViewMembers -[hidden]down-> UC_UpdateRole
+UC_UpdateRole -[hidden]down-> UC_RemoveMember
+
+UC_AssignRole -[hidden]down-> UC_SetResponsibilities
+UC_SetResponsibilities -[hidden]down-> UC_SetAllocation
+
+UC_ViewAvailability -[hidden]right-> HR
+UC_ViewAssignment -[hidden]right-> Staff
+
+HR -[hidden]down-> Staff
+
+@enduml

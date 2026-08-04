@@ -42,18 +42,18 @@ flowchart LR
     Authorization["Authorization"]:::categoryStyle
     AccountManagement["Account Management"]:::categoryStyle
 
-    Login["Login"]
-    Logout["Logout"]:::priorityFeature
-    ForgotResetPassword["Forgot / Reset Password"]:::normalFeature
-    RefreshToken["Refresh Token"]:::normalFeature
+    %% Login["Login"]
+    %% Logout["Logout"]:::priorityFeature
+    %% ForgotResetPassword["Forgot / Reset Password"]:::normalFeature
+    %% RefreshToken["Refresh Token"]:::normalFeature
 
-    RoleManagement["Role Management"]:::priorityFeature
-    PermissionManagement["Permission Management"]:::normalFeature
-    RoleAssignment["Role Assignment"]:::normalFeature
+    %% RoleManagement["Role Management"]:::priorityFeature
+    %% PermissionManagement["Permission Management"]:::normalFeature
+    %% RoleAssignment["Role Assignment"]:::normalFeature
 
-    UserProfile["User Profile"]:::priorityFeature
-    AccountActivation["Activate / Deactivate Account"]:::priorityFeature
-    ChangePassword["Change Password"]:::normalFeature
+    %% UserProfile["User Profile"]:::priorityFeature
+    %% AccountActivation["Activate / Deactivate Account"]:::priorityFeature
+    %% ChangePassword["Change Password"]:::normalFeature
 
     %% -----------------------------------------------------
     %% Employee & Organization
@@ -63,7 +63,7 @@ flowchart LR
     OrganizationManagement["Organization Management"]:::categoryStyle
     EmploymentManagement["Employment Management"]:::categoryStyle
 
-    EmployeeProfile["Employee Profile"]:::priorityFeature
+    EmployeeProfile["Employee Profile"]:::normalFeature
     EmployeeContact["Contact Information"]:::normalFeature
     EmployeeDocuments["Employee Documents"]:::normalFeature
     EmergencyContact["Emergency Contact"]:::normalFeature
@@ -83,12 +83,12 @@ flowchart LR
     %% -----------------------------------------------------
 
     AttendanceTracking["Attendance Tracking"]:::categoryStyle
-    TimesheetManagement["Timesheet Management"]:::categoryStyle
+    TimesheetManagement["Timesheet Management"]:::priorityFeature
     AttendanceApproval["Attendance Approval"]:::categoryStyle
 
     ClockIn["Clock In"]:::priorityFeature
     ClockOut["Clock Out"]:::priorityFeature
-    BreakTracking["Break Tracking"]:::normalFeature
+    BreakTracking["Break Tracking"]:::priorityFeature
     AttendanceRecord["Attendance Record"]:::priorityFeature
 
     DailyTimesheet["Daily Timesheet"]:::priorityFeature
@@ -105,7 +105,7 @@ flowchart LR
     %% Leave & Scheduling
     %% -----------------------------------------------------
 
-    LeaveManagement["Leave Management"]:::categoryStyle
+    LeaveManagement["Leave Management"]:::priorityFeature
     WorkSchedule["Work Schedule"]:::categoryStyle
     ShiftManagement["Shift Management"]:::categoryStyle
 
@@ -137,9 +137,9 @@ flowchart LR
     %% Project & Productivity
     %% -----------------------------------------------------
 
-    ProjectManagement["Project Management"]:::categoryStyle
-    TaskManagement["Task Management"]:::categoryStyle
-    ProductivityTracking["Productivity Tracking"]:::categoryStyle
+    ProjectManagement["Project Management"]:::priorityFeature
+    TaskManagement["Task Management"]:::priorityFeature
+    ProductivityTracking["Productivity Tracking"]:::priorityFeature
     ProjectCostManagement["Project Cost Management"]:::categoryStyle
 
     CreateProject["Create Project"]:::priorityFeature
@@ -155,7 +155,7 @@ flowchart LR
     TaskTimer["Task Timer"]:::priorityFeature
     ActivitySummary["Activity Summary"]:::normalFeature
     IdleTime["Idle Time"]:::normalFeature
-    ProductivityReport["Productivity Report"]:::normalFeature
+    ProductivityReport["Productivity Report"]:::priorityFeature
 
     HourlyRate["Hourly Rate"]:::normalFeature
     ApprovedHours["Approved Hours"]:::normalFeature
@@ -166,10 +166,10 @@ flowchart LR
     %% Recruitment & Onboarding
     %% -----------------------------------------------------
 
-    RecruitmentManagement["Recruitment Management"]:::categoryStyle
-    CandidateManagement["Candidate Management"]:::categoryStyle
+    RecruitmentManagement["Recruitment Management"]:::priorityFeature
+    CandidateManagement["Candidate Management"]:::priorityFeature
     InterviewManagement["Interview Management"]:::categoryStyle
-    OnboardingManagement["Onboarding Management"]:::categoryStyle
+    OnboardingManagement["Onboarding Management"]:::priorityFeature
 
     JobOpening["Job Opening"]:::normalFeature
     JobDescription["Job Description"]:::normalFeature
@@ -186,24 +186,24 @@ flowchart LR
     InterviewResult["Interview Result"]:::normalFeature
     OfferManagement["Offer Management"]:::normalFeature
 
-    OnboardingChecklist["Onboarding Checklist"]:::normalFeature
-    DocumentCollection["Document Collection"]:::normalFeature
-    EquipmentAssignment["Equipment Assignment"]:::normalFeature
-    OnboardingProgress["Onboarding Progress"]:::normalFeature
+    OnboardingChecklist["Onboarding Checklist"]:::priorityFeature
+    DocumentCollection["Document Collection"]:::priorityFeature
+    EquipmentAssignment["Equipment Assignment"]:::priorityFeature
+    OnboardingProgress["Onboarding Progress"]:::priorityFeature
 
     %% -----------------------------------------------------
     %% Performance & Development
     %% -----------------------------------------------------
 
-    GoalManagement["Goal Management"]:::categoryStyle
+    GoalManagement["Goal Management"]:::priorityFeature
     PerformanceReview["Performance Review"]:::categoryStyle
     FeedbackManagement["Feedback Management"]:::categoryStyle
     LearningDevelopment["Learning & Development"]:::categoryStyle
 
-    EmployeeGoal["Employee Goal"]:::normalFeature
-    TeamGoal["Team Goal"]:::normalFeature
-    GoalProgress["Goal Progress"]:::normalFeature
-    GoalStatus["Goal Status"]:::normalFeature
+    EmployeeGoal["Employee Goal"]:::priorityFeature
+    TeamGoal["Team Goal"]:::priorityFeature
+    GoalProgress["Goal Progress"]:::priorityFeature
+    GoalStatus["Goal Status"]:::priorityFeature
 
     ReviewCycle["Review Cycle"]:::normalFeature
     SelfAssessment["Self Assessment"]:::normalFeature
@@ -552,5 +552,5 @@ The following features are ordered by business impact and represent the core val
 ![alt text](workforce-management/docs/usecases/uc-09-time-review-and-approval/uc-09-time-review-and-approval.png) 
 ### II.10 Onboarding management 
 ![alt text](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
-
+### II.11 Employment Lifecycle Management
 

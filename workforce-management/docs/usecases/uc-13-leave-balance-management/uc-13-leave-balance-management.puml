@@ -1,0 +1,76 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "HR Staff" as HR
+actor Staff
+actor "Tenant Admin" as TenantAdmin
+
+rectangle "Leave Balance Management" {
+    usecase "Configure Leave Entitlement" as UC_ConfigureEntitlement
+    usecase "Assign Leave Balance" as UC_AssignBalance
+    usecase "Accrue Leave Balance" as UC_AccrueBalance
+    usecase "Deduct Used Leave" as UC_DeductLeave
+
+    usecase "Adjust Leave Balance" as UC_AdjustBalance
+    usecase "Add Balance Adjustment Reason" as UC_AdjustReason
+    usecase "Carry Forward Leave Balance" as UC_CarryForward
+    usecase "Expire Leave Balance" as UC_ExpireBalance
+
+    usecase "View Employee Leave Balance" as UC_ViewEmployeeBalance
+    usecase "View Personal Leave Balance" as UC_ViewPersonalBalance
+    usecase "View Leave Balance History" as UC_ViewHistory
+    usecase "Generate Leave Balance Report" as UC_Report
+
+    usecase "Approve Balance Adjustment" as UC_ApproveAdjustment
+}
+
+HR -- UC_ConfigureEntitlement
+HR -- UC_AssignBalance
+HR -- UC_AdjustBalance
+HR -- UC_CarryForward
+HR -- UC_ExpireBalance
+HR -- UC_ViewEmployeeBalance
+HR -- UC_ViewHistory
+HR -- UC_Report
+
+UC_ApproveAdjustment -- TenantAdmin
+
+UC_ViewPersonalBalance -- Staff
+UC_ViewHistory -- Staff
+
+UC_AssignBalance ..> UC_ConfigureEntitlement : <<include>>
+UC_AccrueBalance ..> UC_AssignBalance : <<include>>
+UC_DeductLeave ..> UC_ViewEmployeeBalance : <<include>>
+
+UC_AdjustBalance ..> UC_AdjustReason : <<include>>
+UC_AdjustBalance ..> UC_ApproveAdjustment : <<include>>
+
+UC_CarryForward ..> UC_ViewEmployeeBalance : <<include>>
+UC_ExpireBalance ..> UC_ViewEmployeeBalance : <<include>>
+
+UC_Report ..> UC_ViewEmployeeBalance : <<include>>
+
+HR -[hidden]right-> UC_ConfigureEntitlement
+
+UC_ConfigureEntitlement -[hidden]down-> UC_AssignBalance
+UC_AssignBalance -[hidden]down-> UC_AdjustBalance
+UC_AdjustBalance -[hidden]down-> UC_CarryForward
+UC_CarryForward -[hidden]down-> UC_ExpireBalance
+UC_ExpireBalance -[hidden]down-> UC_Report
+
+UC_ApproveAdjustment -[hidden]right-> TenantAdmin
+UC_ViewPersonalBalance -[hidden]right-> Staff
+
+@enduml
