@@ -1,0 +1,134 @@
+@startuml
+left to right direction
+
+' =========================
+' General Style
+' =========================
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 65
+skinparam ranksep 55
+skinparam padding 8
+
+skinparam ArrowColor #607D8B
+skinparam ArrowThickness 1
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 13
+
+skinparam actor {
+    BackgroundColor #ECEFF1
+    BorderColor #455A64
+    FontColor #263238
+}
+
+skinparam rectangle {
+    BackgroundColor #FAFAFA
+    BorderColor #37474F
+    FontColor #263238
+    FontStyle bold
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    FontColor #263238
+    ArrowColor #607D8B
+}
+
+' =========================
+' Actors
+' =========================
+actor Staff
+
+actor Manager
+actor "HR Staff" as HR
+actor "Payroll Staff" as Payroll
+
+' =========================
+' System Boundary
+' =========================
+rectangle "Overtime Management System" {
+
+    rectangle "Employee Overtime" as EmployeeArea {
+        usecase "Request\nOvertime" as UC_Request
+        usecase "Record\nOvertime Hours" as UC_Record
+        usecase "View Overtime\nHistory" as UC_History
+        usecase "Cancel Overtime\nRequest" as UC_Cancel
+
+        UC_Request -[hidden]down-> UC_Record
+        UC_Record -[hidden]down-> UC_History
+        UC_History -[hidden]down-> UC_Cancel
+    }
+
+    rectangle "Approval Workflow" as ApprovalArea {
+        usecase "Review Overtime\nRequest" as UC_Review
+        usecase "Approve\nOvertime" as UC_Approve
+        usecase "Reject\nOvertime" as UC_Reject
+        usecase "Request Overtime\nCorrection" as UC_Correction
+
+        UC_Review -[hidden]down-> UC_Approve
+        UC_Approve -[hidden]down-> UC_Reject
+        UC_Reject -[hidden]down-> UC_Correction
+    }
+
+    rectangle "Overtime Validation" as ValidationArea {
+        usecase "Validate Overtime\nHours" as UC_Validate
+        usecase "View Overtime\nReport" as UC_Report
+
+        UC_Validate -[hidden]down-> UC_Report
+    }
+
+    rectangle "Payroll Processing" as PayrollArea {
+        usecase "Calculate\nOvertime Pay" as UC_Calculate
+    }
+
+    ' Arrange functional areas horizontally
+    EmployeeArea -[hidden]right-> ApprovalArea
+    ApprovalArea -[hidden]right-> ValidationArea
+    ValidationArea -[hidden]right-> PayrollArea
+}
+
+' =========================
+' Actor Associations
+' =========================
+Staff -- UC_Request
+Staff -- UC_Record
+Staff -- UC_History
+Staff -- UC_Cancel
+
+UC_Review -- Manager
+UC_Approve -- Manager
+UC_Reject -- Manager
+UC_Correction -- Manager
+
+UC_Validate -- HR
+UC_Report -- HR
+
+UC_Calculate -- Payroll
+UC_Report -- Payroll
+
+' =========================
+' Use Case Relationships
+' =========================
+UC_Request ..> UC_Validate : <<include>>
+UC_Record ..> UC_Validate : <<include>>
+
+UC_Approve ..> UC_Review : <<include>>
+UC_Reject ..> UC_Review : <<include>>
+UC_Correction ..> UC_Review : <<extend>>
+
+UC_Cancel ..> UC_History : <<extend>>
+UC_Calculate ..> UC_Approve : <<include>>
+
+' =========================
+' Actor Position Control
+' =========================
+Staff -[hidden]right-> EmployeeArea
+
+PayrollArea -[hidden]right-> Manager
+Manager -[hidden]down-> HR
+HR -[hidden]down-> Payroll
+
+@enduml

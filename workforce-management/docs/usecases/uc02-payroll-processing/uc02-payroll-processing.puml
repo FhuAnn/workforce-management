@@ -1,0 +1,151 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+skinparam rectangle {
+    RoundCorner 12
+}
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "Payroll Staff" as PayrollStaff
+actor "Tenant Admin" as TenantAdmin
+actor Employee
+
+rectangle "Payroll Processing" {
+
+    usecase "Prepare Payroll" as UC_PreparePayroll
+    usecase "Create Payroll Period" as UC_CreatePeriod
+    usecase "Select Employees" as UC_SelectEmployees
+    usecase "Collect Payroll Inputs" as UC_CollectInputs
+
+    usecase "Import Approved\nTimesheets" as UC_ImportTimesheets
+    usecase "Import Attendance\nand Leave Data" as UC_ImportAttendanceLeave
+    usecase "Import Approved\nOvertime" as UC_ImportOvertime
+
+    usecase "Calculate Payroll" as UC_CalculatePayroll
+    usecase "Calculate Earnings" as UC_CalculateEarnings
+    usecase "Calculate Allowances\nand Bonuses" as UC_CalculateBenefits
+    usecase "Calculate Deductions\nand Tax" as UC_CalculateDeductions
+    usecase "Calculate Net Salary" as UC_CalculateNetSalary
+
+    usecase "Review Payroll" as UC_ReviewPayroll
+    usecase "Adjust Payroll" as UC_AdjustPayroll
+    usecase "Validate Payroll" as UC_ValidatePayroll
+
+    usecase "Approve Payroll" as UC_ApprovePayroll
+    usecase "Reject Payroll" as UC_RejectPayroll
+    usecase "Finalize Payroll" as UC_FinalizePayroll
+
+    usecase "Generate Payslips" as UC_GeneratePayslips
+    usecase "Publish Payslips" as UC_PublishPayslips
+    usecase "View Payslip" as UC_ViewPayslip
+    usecase "Download Payslip" as UC_DownloadPayslip
+
+    usecase "Generate Payroll Report" as UC_GenerateReport
+    usecase "Export Payroll Data" as UC_ExportPayroll
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' Actors connect only to their main business goals
+' =====================================================
+
+PayrollStaff -- UC_PreparePayroll
+PayrollStaff -- UC_CalculatePayroll
+PayrollStaff -- UC_ReviewPayroll
+PayrollStaff -- UC_GenerateReport
+
+UC_ApprovePayroll -- TenantAdmin
+UC_RejectPayroll -- TenantAdmin
+UC_FinalizePayroll -- TenantAdmin
+
+UC_ViewPayslip -- Employee
+UC_DownloadPayslip -- Employee
+
+' =====================================================
+' PAYROLL PREPARATION
+' =====================================================
+
+UC_PreparePayroll ..> UC_CreatePeriod : <<include>>
+UC_PreparePayroll ..> UC_SelectEmployees : <<include>>
+UC_PreparePayroll ..> UC_CollectInputs : <<include>>
+
+UC_CollectInputs ..> UC_ImportTimesheets : <<include>>
+UC_CollectInputs ..> UC_ImportAttendanceLeave : <<include>>
+UC_CollectInputs ..> UC_ImportOvertime : <<include>>
+
+' =====================================================
+' PAYROLL CALCULATION
+' =====================================================
+
+UC_CalculatePayroll ..> UC_PreparePayroll : <<include>>
+UC_CalculatePayroll ..> UC_CalculateEarnings : <<include>>
+UC_CalculatePayroll ..> UC_CalculateBenefits : <<include>>
+UC_CalculatePayroll ..> UC_CalculateDeductions : <<include>>
+UC_CalculatePayroll ..> UC_CalculateNetSalary : <<include>>
+
+UC_CalculateEarnings ..> UC_ImportTimesheets : <<include>>
+UC_CalculateEarnings ..> UC_ImportOvertime : <<include>>
+
+UC_CalculateDeductions ..> UC_ImportAttendanceLeave : <<include>>
+
+' =====================================================
+' REVIEW AND APPROVAL
+' =====================================================
+
+UC_ReviewPayroll ..> UC_CalculatePayroll : <<include>>
+UC_ReviewPayroll ..> UC_ValidatePayroll : <<include>>
+
+UC_AdjustPayroll ..> UC_ReviewPayroll : <<extend>>
+
+UC_ApprovePayroll ..> UC_ValidatePayroll : <<include>>
+UC_RejectPayroll ..> UC_ValidatePayroll : <<extend>>
+UC_FinalizePayroll ..> UC_ApprovePayroll : <<include>>
+
+' =====================================================
+' PAYSLIP AND REPORT OUTPUT
+' =====================================================
+
+UC_GeneratePayslips ..> UC_FinalizePayroll : <<include>>
+UC_PublishPayslips ..> UC_GeneratePayslips : <<include>>
+
+UC_ViewPayslip ..> UC_PublishPayslips : <<include>>
+UC_DownloadPayslip ..> UC_ViewPayslip : <<extend>>
+
+UC_GenerateReport ..> UC_FinalizePayroll : <<include>>
+UC_ExportPayroll ..> UC_GenerateReport : <<extend>>
+
+' =====================================================
+' LAYOUT CONTROL
+' Hidden links influence position without appearing
+' =====================================================
+
+PayrollStaff -[hidden]right-> UC_PreparePayroll
+
+UC_PreparePayroll -[hidden]down-> UC_CalculatePayroll
+UC_CalculatePayroll -[hidden]down-> UC_ReviewPayroll
+UC_ReviewPayroll -[hidden]down-> UC_GenerateReport
+
+UC_CreatePeriod -[hidden]down-> UC_CollectInputs
+UC_CollectInputs -[hidden]down-> UC_ImportTimesheets
+UC_ImportTimesheets -[hidden]down-> UC_ImportAttendanceLeave
+UC_ImportAttendanceLeave -[hidden]down-> UC_ImportOvertime
+
+UC_CalculateEarnings -[hidden]down-> UC_CalculateBenefits
+UC_CalculateBenefits -[hidden]down-> UC_CalculateDeductions
+UC_CalculateDeductions -[hidden]down-> UC_CalculateNetSalary
+
+UC_ApprovePayroll -[hidden]right-> TenantAdmin
+UC_ViewPayslip -[hidden]right-> Employee
+
+TenantAdmin -[hidden]down-> Employee
+
+@enduml

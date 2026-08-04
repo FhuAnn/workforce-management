@@ -1,0 +1,104 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "Payroll Staff" as PayrollStaff
+actor "Tenant Admin" as TenantAdmin
+actor Staff
+actor "Third-Party Service" as ThirdParty
+
+rectangle "Payslip Management" {
+
+    usecase "Generate Payslip" as UC_GeneratePayslip
+    usecase "Generate Payslips in Bulk" as UC_BulkGenerate
+    usecase "Review Payslip" as UC_ReviewPayslip
+    usecase "Edit Payslip Details" as UC_EditPayslip
+    usecase "Approve Payslip Publication" as UC_ApprovePublication
+
+    usecase "Publish Payslip" as UC_PublishPayslip
+    usecase "Withdraw Published Payslip" as UC_WithdrawPayslip
+    usecase "Regenerate Payslip" as UC_RegeneratePayslip
+
+    usecase "View Personal Payslip" as UC_ViewPayslip
+    usecase "Download Payslip" as UC_DownloadPayslip
+    usecase "View Payslip History" as UC_ViewHistory
+
+    usecase "Store Payslip File" as UC_StoreFile
+    usecase "Send Payslip Notification" as UC_SendNotification
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+PayrollStaff -- UC_GeneratePayslip
+PayrollStaff -- UC_BulkGenerate
+PayrollStaff -- UC_ReviewPayslip
+PayrollStaff -- UC_EditPayslip
+PayrollStaff -- UC_PublishPayslip
+PayrollStaff -- UC_WithdrawPayslip
+PayrollStaff -- UC_RegeneratePayslip
+
+UC_ApprovePublication -- TenantAdmin
+
+UC_ViewPayslip -- Staff
+UC_DownloadPayslip -- Staff
+UC_ViewHistory -- Staff
+
+UC_StoreFile -- ThirdParty
+UC_SendNotification -- ThirdParty
+
+' =====================================================
+' USE CASE RELATIONSHIPS
+' =====================================================
+
+UC_BulkGenerate ..> UC_GeneratePayslip : <<include>>
+
+UC_ReviewPayslip ..> UC_GeneratePayslip : <<include>>
+UC_EditPayslip ..> UC_ReviewPayslip : <<extend>>
+
+UC_ApprovePublication ..> UC_ReviewPayslip : <<include>>
+UC_PublishPayslip ..> UC_ApprovePublication : <<include>>
+
+UC_PublishPayslip ..> UC_StoreFile : <<include>>
+UC_PublishPayslip ..> UC_SendNotification : <<include>>
+
+UC_DownloadPayslip ..> UC_ViewPayslip : <<extend>>
+UC_ViewHistory ..> UC_ViewPayslip : <<extend>>
+
+UC_WithdrawPayslip ..> UC_PublishPayslip : <<extend>>
+UC_RegeneratePayslip ..> UC_WithdrawPayslip : <<extend>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+PayrollStaff -[hidden]right-> UC_GeneratePayslip
+
+UC_GeneratePayslip -[hidden]down-> UC_ReviewPayslip
+UC_ReviewPayslip -[hidden]down-> UC_PublishPayslip
+UC_PublishPayslip -[hidden]down-> UC_WithdrawPayslip
+
+UC_ApprovePublication -[hidden]right-> TenantAdmin
+UC_ViewPayslip -[hidden]right-> Staff
+UC_StoreFile -[hidden]right-> ThirdParty
+
+TenantAdmin -[hidden]down-> Staff
+Staff -[hidden]down-> ThirdParty
+
+@enduml

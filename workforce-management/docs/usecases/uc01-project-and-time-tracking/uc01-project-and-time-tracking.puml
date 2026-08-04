@@ -1,0 +1,67 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor Employee
+actor Manager
+
+rectangle "Project and Task Time Tracking" {
+
+  package "Employee Functions" {
+    usecase "Start Timer" as UC_Start
+    usecase "Pause Timer" as UC_Pause
+    usecase "Resume Timer" as UC_Resume
+    usecase "Stop Timer" as UC_Stop
+
+    usecase "Add Manual Time Entry" as UC_AddManual
+    usecase "Edit Time Entry" as UC_Edit
+    usecase "Delete Time Entry" as UC_Delete
+    usecase "View Personal Time Entries" as UC_ViewPersonal
+
+    usecase "Select Project" as UC_Project
+    usecase "Select Task" as UC_Task
+  }
+
+  package "Manager Functions" {
+    usecase "Review Time Entry" as UC_Review
+    usecase "Approve Time Entry" as UC_Approve
+    usecase "Reject Time Entry" as UC_Reject
+    usecase "View Project Time Entries" as UC_ViewProject
+    usecase "Generate Time Tracking Report" as UC_Report
+  }
+}
+
+Employee --> UC_Start
+Employee --> UC_Pause
+Employee --> UC_Resume
+Employee --> UC_Stop
+Employee --> UC_AddManual
+Employee --> UC_Edit
+Employee --> UC_Delete
+Employee --> UC_ViewPersonal
+
+Manager --> UC_Review
+Manager --> UC_Approve
+Manager --> UC_Reject
+Manager --> UC_ViewProject
+Manager --> UC_Report
+
+UC_Start ..> UC_Project : <<include>>
+UC_Start ..> UC_Task : <<include>>
+
+UC_AddManual ..> UC_Project : <<include>>
+UC_AddManual ..> UC_Task : <<include>>
+
+UC_Pause ..> UC_Start : <<extend>>
+UC_Resume ..> UC_Pause : <<extend>>
+UC_Stop ..> UC_Start : <<extend>>
+
+UC_Approve ..> UC_Review : <<extend>>
+UC_Reject ..> UC_Review : <<extend>>
+
+UC_Report ..> UC_ViewProject : <<include>>
+
+@enduml

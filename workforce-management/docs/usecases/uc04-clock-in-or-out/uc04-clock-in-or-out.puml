@@ -1,0 +1,111 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 55
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+actor Manager
+actor "HR Staff" as HR
+actor "Third-Party Service" as ThirdParty
+
+rectangle "Clock In / Clock Out" {
+
+    usecase "Clock In" as UC_ClockIn
+    usecase "Clock Out" as UC_ClockOut
+
+    usecase "Start Break" as UC_StartBreak
+    usecase "End Break" as UC_EndBreak
+
+    usecase "View Current Work Session" as UC_ViewCurrentSession
+    usecase "View Clocking History" as UC_ViewHistory
+
+    usecase "Capture Timestamp" as UC_CaptureTime
+    usecase "Record Work Location" as UC_RecordLocation
+    usecase "Verify Employee Identity" as UC_VerifyIdentity
+    usecase "Calculate Session Duration" as UC_CalculateDuration
+
+    usecase "View Team Clocking Status" as UC_ViewTeamStatus
+    usecase "Review Attendance Exception" as UC_ReviewException
+
+    usecase "Request Clocking Correction" as UC_RequestCorrection
+    usecase "Correct Clocking Record" as UC_CorrectRecord
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+Staff -- UC_ClockIn
+Staff -- UC_ClockOut
+Staff -- UC_StartBreak
+Staff -- UC_EndBreak
+Staff -- UC_ViewCurrentSession
+Staff -- UC_ViewHistory
+Staff -- UC_RequestCorrection
+
+UC_ViewTeamStatus -- Manager
+UC_ReviewException -- Manager
+
+UC_ReviewException -- HR
+UC_CorrectRecord -- HR
+
+UC_RecordLocation -- ThirdParty
+UC_VerifyIdentity -- ThirdParty
+
+' =====================================================
+' CLOCKING RELATIONSHIPS
+' =====================================================
+
+UC_ClockIn ..> UC_CaptureTime : <<include>>
+UC_ClockIn ..> UC_VerifyIdentity : <<include>>
+
+UC_ClockOut ..> UC_CaptureTime : <<include>>
+UC_ClockOut ..> UC_CalculateDuration : <<include>>
+
+UC_StartBreak ..> UC_ViewCurrentSession : <<include>>
+UC_StartBreak ..> UC_CaptureTime : <<include>>
+
+UC_EndBreak ..> UC_StartBreak : <<extend>>
+UC_EndBreak ..> UC_CaptureTime : <<include>>
+
+UC_RecordLocation ..> UC_ClockIn : <<extend>>
+UC_RecordLocation ..> UC_ClockOut : <<extend>>
+
+UC_RequestCorrection ..> UC_ViewHistory : <<include>>
+UC_CorrectRecord ..> UC_ReviewException : <<include>>
+
+UC_ReviewException ..> UC_ViewTeamStatus : <<include>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+Staff -[hidden]right-> UC_ClockIn
+
+UC_ClockIn -[hidden]down-> UC_StartBreak
+UC_StartBreak -[hidden]down-> UC_EndBreak
+UC_EndBreak -[hidden]down-> UC_ClockOut
+UC_ClockOut -[hidden]down-> UC_ViewHistory
+
+UC_ViewTeamStatus -[hidden]right-> Manager
+UC_ReviewException -[hidden]right-> HR
+UC_VerifyIdentity -[hidden]right-> ThirdParty
+
+Manager -[hidden]down-> HR
+HR -[hidden]down-> ThirdParty
+
+@enduml

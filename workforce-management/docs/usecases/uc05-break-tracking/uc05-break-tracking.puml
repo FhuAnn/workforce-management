@@ -1,0 +1,109 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 55
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Staff
+actor Manager
+actor "HR Staff" as HR
+
+rectangle "Break Tracking" {
+
+    usecase "Start Break" as UC_StartBreak
+    usecase "End Break" as UC_EndBreak
+
+    usecase "View Current Break Status" as UC_ViewCurrentStatus
+    usecase "View Personal Break History" as UC_ViewHistory
+    usecase "Request Break Correction" as UC_RequestCorrection
+
+    usecase "Verify Active Work Session" as UC_VerifyWorkSession
+    usecase "Verify Active Break" as UC_VerifyActiveBreak
+    usecase "Capture Break Start Time" as UC_CaptureStart
+    usecase "Capture Break End Time" as UC_CaptureEnd
+    usecase "Calculate Break Duration" as UC_CalculateDuration
+    usecase "Update Working Duration" as UC_UpdateWorkingDuration
+
+    usecase "View Team Break Status" as UC_ViewTeamStatus
+    usecase "Review Break Exception" as UC_ReviewException
+    usecase "Correct Break Record" as UC_CorrectRecord
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+Staff -- UC_StartBreak
+Staff -- UC_EndBreak
+Staff -- UC_ViewCurrentStatus
+Staff -- UC_ViewHistory
+Staff -- UC_RequestCorrection
+
+UC_ViewTeamStatus -- Manager
+UC_ReviewException -- Manager
+
+UC_ReviewException -- HR
+UC_CorrectRecord -- HR
+
+' =====================================================
+' START BREAK
+' =====================================================
+
+UC_StartBreak ..> UC_VerifyWorkSession : <<include>>
+UC_StartBreak ..> UC_CaptureStart : <<include>>
+
+' =====================================================
+' END BREAK
+' =====================================================
+
+UC_EndBreak ..> UC_VerifyActiveBreak : <<include>>
+UC_EndBreak ..> UC_CaptureEnd : <<include>>
+UC_EndBreak ..> UC_CalculateDuration : <<include>>
+UC_EndBreak ..> UC_UpdateWorkingDuration : <<include>>
+
+' =====================================================
+' HISTORY AND CORRECTION
+' =====================================================
+
+UC_RequestCorrection ..> UC_ViewHistory : <<include>>
+
+UC_ReviewException ..> UC_ViewTeamStatus : <<include>>
+UC_CorrectRecord ..> UC_ReviewException : <<include>>
+UC_CorrectRecord ..> UC_CalculateDuration : <<include>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+Staff -[hidden]right-> UC_StartBreak
+
+UC_StartBreak -[hidden]down-> UC_EndBreak
+UC_EndBreak -[hidden]down-> UC_ViewCurrentStatus
+UC_ViewCurrentStatus -[hidden]down-> UC_ViewHistory
+UC_ViewHistory -[hidden]down-> UC_RequestCorrection
+
+UC_VerifyWorkSession -[hidden]down-> UC_CaptureStart
+UC_CaptureStart -[hidden]down-> UC_VerifyActiveBreak
+UC_VerifyActiveBreak -[hidden]down-> UC_CaptureEnd
+UC_CaptureEnd -[hidden]down-> UC_CalculateDuration
+UC_CalculateDuration -[hidden]down-> UC_UpdateWorkingDuration
+
+UC_ViewTeamStatus -[hidden]right-> Manager
+UC_ReviewException -[hidden]right-> HR
+
+Manager -[hidden]down-> HR
+
+@enduml

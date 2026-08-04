@@ -1,0 +1,125 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 55
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Manager
+actor "HR Staff" as HR
+
+actor Staff
+actor "Third-Party\nLocation Service" as ThirdParty
+
+rectangle "Onsite Work Location Management" {
+
+    ' Column 1: Location configuration
+    usecase "Manage Onsite\nLocation" as UC_ManageLocation
+    usecase "Configure\nGeofence" as UC_ConfigureGeofence
+    usecase "Set Onsite\nSchedule" as UC_SetSchedule
+    usecase "Assign Staff\nto Location" as UC_AssignStaff
+
+    ' Column 2: Staff operations
+    usecase "View Assigned\nLocation" as UC_ViewLocation
+    usecase "Get Directions" as UC_GetDirections
+    usecase "Check In at\nJob Site" as UC_CheckIn
+    usecase "Check Out from\nJob Site" as UC_CheckOut
+
+    ' Column 3: Verification and attendance
+    usecase "Verify Current\nLocation" as UC_VerifyLocation
+    usecase "View Onsite\nAttendance" as UC_ViewAttendance
+    usecase "Review Location\nException" as UC_ReviewException
+    usecase "Correct Onsite\nAttendance" as UC_CorrectAttendance
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+Manager -right- UC_ManageLocation
+Manager -right- UC_SetSchedule
+Manager -right- UC_AssignStaff
+
+HR -right- UC_ViewAttendance
+HR -right- UC_ReviewException
+HR -right- UC_CorrectAttendance
+
+UC_ViewLocation -right- Staff
+UC_GetDirections -right- Staff
+UC_CheckIn -right- Staff
+UC_CheckOut -right- Staff
+
+UC_GetDirections -right- ThirdParty
+UC_VerifyLocation -right- ThirdParty
+
+' =====================================================
+' USE CASE RELATIONSHIPS
+' =====================================================
+
+UC_ManageLocation ..> UC_ConfigureGeofence : <<include>>
+
+UC_AssignStaff ..> UC_ManageLocation : <<include>>
+UC_AssignStaff ..> UC_SetSchedule : <<include>>
+
+UC_GetDirections ..> UC_ViewLocation : <<extend>>
+
+UC_CheckIn ..> UC_ViewLocation : <<include>>
+UC_CheckIn ..> UC_VerifyLocation : <<include>>
+
+UC_CheckOut ..> UC_VerifyLocation : <<include>>
+
+UC_ReviewException ..> UC_ViewAttendance : <<include>>
+UC_CorrectAttendance ..> UC_ReviewException : <<include>>
+
+' =====================================================
+' COLUMN LAYOUT
+' =====================================================
+
+UC_ManageLocation -[hidden]down-> UC_ConfigureGeofence
+UC_ConfigureGeofence -[hidden]down-> UC_SetSchedule
+UC_SetSchedule -[hidden]down-> UC_AssignStaff
+
+UC_ViewLocation -[hidden]down-> UC_GetDirections
+UC_GetDirections -[hidden]down-> UC_CheckIn
+UC_CheckIn -[hidden]down-> UC_CheckOut
+
+UC_VerifyLocation -[hidden]down-> UC_ViewAttendance
+UC_ViewAttendance -[hidden]down-> UC_ReviewException
+UC_ReviewException -[hidden]down-> UC_CorrectAttendance
+
+' =====================================================
+' ROW ALIGNMENT
+' =====================================================
+
+UC_ManageLocation -[hidden]right-> UC_ViewLocation
+UC_ViewLocation -[hidden]right-> UC_VerifyLocation
+
+UC_ConfigureGeofence -[hidden]right-> UC_GetDirections
+UC_GetDirections -[hidden]right-> UC_ViewAttendance
+
+UC_SetSchedule -[hidden]right-> UC_CheckIn
+UC_CheckIn -[hidden]right-> UC_ReviewException
+
+UC_AssignStaff -[hidden]right-> UC_CheckOut
+UC_CheckOut -[hidden]right-> UC_CorrectAttendance
+
+' =====================================================
+' ACTOR POSITIONING
+' =====================================================
+
+Manager -[hidden]down-> HR
+Staff -[hidden]down-> ThirdParty
+
+@enduml

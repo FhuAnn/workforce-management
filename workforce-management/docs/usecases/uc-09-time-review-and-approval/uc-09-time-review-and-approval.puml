@@ -1,0 +1,79 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor Manager
+actor "HR Staff" as HR
+actor Staff
+
+rectangle "Timesheet Review and Approval" {
+    usecase "View Submitted Timesheets" as UC_ViewSubmitted
+    usecase "Review Timesheet Details" as UC_Review
+    usecase "Compare with Attendance" as UC_CompareAttendance
+    usecase "View Change History" as UC_ViewHistory
+
+    usecase "Approve Timesheet" as UC_Approve
+    usecase "Reject Timesheet" as UC_Reject
+    usecase "Request Correction" as UC_RequestCorrection
+    usecase "Add Review Comment" as UC_AddComment
+
+    usecase "Correct Timesheet" as UC_Correct
+    usecase "Resubmit Timesheet" as UC_Resubmit
+    usecase "View Approval Result" as UC_ViewResult
+
+    usecase "Audit Approved Timesheets" as UC_Audit
+}
+
+Manager -- UC_ViewSubmitted
+Manager -- UC_Review
+Manager -- UC_Approve
+Manager -- UC_Reject
+Manager -- UC_RequestCorrection
+Manager -- UC_AddComment
+
+HR -- UC_Audit
+HR -- UC_ViewHistory
+
+UC_Correct -- Staff
+UC_Resubmit -- Staff
+UC_ViewResult -- Staff
+
+UC_Review ..> UC_ViewSubmitted : <<include>>
+UC_Review ..> UC_CompareAttendance : <<include>>
+UC_Review ..> UC_ViewHistory : <<include>>
+
+UC_Approve ..> UC_Review : <<include>>
+UC_Reject ..> UC_Review : <<include>>
+UC_RequestCorrection ..> UC_Review : <<include>>
+
+UC_Approve ..> UC_AddComment : <<extend>>
+UC_Reject ..> UC_AddComment : <<include>>
+UC_RequestCorrection ..> UC_AddComment : <<include>>
+
+UC_Correct ..> UC_RequestCorrection : <<extend>>
+UC_Resubmit ..> UC_Correct : <<include>>
+
+Manager -[hidden]right-> UC_ViewSubmitted
+
+UC_ViewSubmitted -[hidden]down-> UC_Review
+UC_Review -[hidden]down-> UC_Approve
+UC_Approve -[hidden]down-> UC_Reject
+UC_Reject -[hidden]down-> UC_RequestCorrection
+
+UC_Audit -[hidden]right-> HR
+UC_Correct -[hidden]right-> Staff
+
+HR -[hidden]down-> Staff
+
+@enduml

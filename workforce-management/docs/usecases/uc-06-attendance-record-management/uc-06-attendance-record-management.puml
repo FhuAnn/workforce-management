@@ -1,0 +1,122 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+skinparam rectangle {
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    ArrowColor #607D8B
+}
+
+actor "HR Staff" as HR
+actor Manager
+actor Staff
+
+rectangle "Attendance Record Management" {
+
+    usecase "Manage Daily\nAttendance Records" as UC_ManageRecords
+    usecase "View Daily\nAttendance Record" as UC_ViewDaily
+    usecase "View Attendance\nHistory" as UC_ViewHistory
+
+    usecase "Calculate Working\nHours" as UC_CalculateHours
+    usecase "Detect Late Arrival" as UC_DetectLate
+    usecase "Detect Early Departure" as UC_DetectEarly
+    usecase "Determine Attendance\nStatus" as UC_DetermineStatus
+
+    usecase "Mark Employee\nAbsent" as UC_MarkAbsent
+    usecase "Update Attendance\nStatus" as UC_UpdateStatus
+    usecase "Correct Attendance\nRecord" as UC_CorrectRecord
+
+    usecase "View Team\nAttendance" as UC_ViewTeam
+    usecase "Review Attendance\nException" as UC_ReviewException
+    usecase "Generate Attendance\nReport" as UC_GenerateReport
+
+    usecase "View Personal\nAttendance" as UC_ViewPersonal
+    usecase "Request Attendance\nCorrection" as UC_RequestCorrection
+}
+
+' =====================================================
+' ACTOR ASSOCIATIONS
+' =====================================================
+
+HR -- UC_ManageRecords
+HR -- UC_CorrectRecord
+HR -- UC_MarkAbsent
+HR -- UC_UpdateStatus
+HR -- UC_ReviewException
+HR -- UC_GenerateReport
+
+Manager -- UC_ViewTeam
+Manager -- UC_ReviewException
+Manager -- UC_GenerateReport
+
+UC_ViewPersonal -- Staff
+UC_ViewHistory -- Staff
+UC_RequestCorrection -- Staff
+
+' =====================================================
+' ATTENDANCE RECORD MANAGEMENT
+' =====================================================
+
+UC_ManageRecords ..> UC_ViewDaily : <<include>>
+UC_ManageRecords ..> UC_UpdateStatus : <<include>>
+
+UC_ViewDaily ..> UC_CalculateHours : <<include>>
+UC_ViewDaily ..> UC_DetermineStatus : <<include>>
+
+UC_DetermineStatus ..> UC_DetectLate : <<include>>
+UC_DetermineStatus ..> UC_DetectEarly : <<include>>
+
+UC_MarkAbsent ..> UC_UpdateStatus : <<include>>
+UC_CorrectRecord ..> UC_ReviewException : <<include>>
+UC_CorrectRecord ..> UC_CalculateHours : <<include>>
+
+' =====================================================
+' STAFF CORRECTION FLOW
+' =====================================================
+
+UC_ViewPersonal ..> UC_ViewDaily : <<include>>
+UC_ViewHistory ..> UC_ViewPersonal : <<extend>>
+UC_RequestCorrection ..> UC_ViewPersonal : <<include>>
+
+' =====================================================
+' TEAM REVIEW AND REPORTING
+' =====================================================
+
+UC_ViewTeam ..> UC_ViewDaily : <<include>>
+UC_ReviewException ..> UC_ViewTeam : <<include>>
+UC_GenerateReport ..> UC_ViewTeam : <<include>>
+
+' =====================================================
+' LAYOUT CONTROL
+' =====================================================
+
+HR -[hidden]right-> UC_ManageRecords
+Manager -[hidden]right-> UC_ViewTeam
+
+UC_ManageRecords -[hidden]down-> UC_CorrectRecord
+UC_CorrectRecord -[hidden]down-> UC_MarkAbsent
+UC_MarkAbsent -[hidden]down-> UC_UpdateStatus
+
+UC_ViewDaily -[hidden]down-> UC_CalculateHours
+UC_CalculateHours -[hidden]down-> UC_DetermineStatus
+UC_DetermineStatus -[hidden]down-> UC_ViewTeam
+UC_ViewTeam -[hidden]down-> UC_ReviewException
+UC_ReviewException -[hidden]down-> UC_GenerateReport
+
+UC_ViewPersonal -[hidden]right-> Staff
+UC_ViewHistory -[hidden]right-> Staff
+UC_RequestCorrection -[hidden]right-> Staff
+
+HR -[hidden]down-> Manager
+
+@enduml

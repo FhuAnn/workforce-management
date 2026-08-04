@@ -1,0 +1,126 @@
+@startuml
+left to right direction
+
+' =========================
+' General Style
+' =========================
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 55
+skinparam padding 8
+
+skinparam ArrowColor #607D8B
+skinparam ArrowThickness 1
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 13
+
+skinparam actor {
+    BackgroundColor #ECEFF1
+    BorderColor #455A64
+    FontColor #263238
+}
+
+skinparam rectangle {
+    BackgroundColor #FAFAFA
+    BorderColor #37474F
+    FontColor #263238
+    FontStyle bold
+    RoundCorner 12
+}
+
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor #546E7A
+    FontColor #263238
+    ArrowColor #607D8B
+}
+
+' =========================
+' Actors
+' =========================
+actor Staff
+actor Manager
+
+' =========================
+' System Boundary
+' =========================
+rectangle "Timesheet Management System" {
+
+    rectangle "Timesheet Viewing" as ViewArea {
+        usecase "View Daily\nTimesheet" as UC_ViewDaily
+        usecase "View Weekly\nTimesheet" as UC_ViewWeekly
+        usecase "View Time by\nProject" as UC_ViewProject
+        usecase "View Time by\nTask" as UC_ViewTask
+
+        UC_ViewDaily -[hidden]down-> UC_ViewWeekly
+        UC_ViewWeekly -[hidden]down-> UC_ViewProject
+        UC_ViewProject -[hidden]down-> UC_ViewTask
+    }
+
+    rectangle "Time Entry Management" as EntryArea {
+        usecase "Add Manual\nTime Entry" as UC_AddEntry
+        usecase "Edit Time\nEntry" as UC_EditEntry
+        usecase "Delete Time\nEntry" as UC_DeleteEntry
+
+        UC_AddEntry -[hidden]down-> UC_EditEntry
+        UC_EditEntry -[hidden]down-> UC_DeleteEntry
+    }
+
+    rectangle "Timesheet Processing" as ProcessArea {
+        usecase "Calculate Working\nHours" as UC_CalculateHours
+        usecase "Calculate Billable\nHours" as UC_CalculateBillable
+        usecase "Submit\nTimesheet" as UC_Submit
+        usecase "View Timesheet\nStatus" as UC_ViewStatus
+
+        UC_CalculateHours -[hidden]down-> UC_CalculateBillable
+        UC_CalculateBillable -[hidden]down-> UC_Submit
+        UC_Submit -[hidden]down-> UC_ViewStatus
+    }
+
+    rectangle "Team Monitoring" as TeamArea {
+        usecase "View Team\nTimesheet Summary" as UC_ViewTeam
+    }
+
+    ' Horizontal arrangement
+    ViewArea -[hidden]right-> EntryArea
+    EntryArea -[hidden]right-> ProcessArea
+    ProcessArea -[hidden]right-> TeamArea
+}
+
+' =========================
+' Actor Associations
+' =========================
+Staff -- UC_ViewDaily
+Staff -- UC_ViewWeekly
+Staff -- UC_ViewProject
+Staff -- UC_ViewTask
+Staff -- UC_AddEntry
+Staff -- UC_EditEntry
+Staff -- UC_DeleteEntry
+Staff -- UC_Submit
+Staff -- UC_ViewStatus
+
+Manager -- UC_ViewTeam
+
+' =========================
+' Use Case Relationships
+' =========================
+UC_ViewWeekly ..> UC_ViewDaily : <<include>>
+UC_ViewProject ..> UC_CalculateHours : <<include>>
+UC_ViewTask ..> UC_CalculateHours : <<include>>
+
+UC_EditEntry ..> UC_ViewDaily : <<extend>>
+UC_DeleteEntry ..> UC_ViewDaily : <<extend>>
+
+UC_Submit ..> UC_CalculateHours : <<include>>
+UC_Submit ..> UC_CalculateBillable : <<include>>
+
+' =========================
+' Layout Control
+' =========================
+Staff -[hidden]right-> ViewArea
+TeamArea -[hidden]right-> Manager
+
+@enduml
