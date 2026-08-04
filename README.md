@@ -625,3 +625,56 @@ The following features are ordered by business impact and represent the core val
 ### 29. Screenshot, App, and URL Tracking
 ![Screenshot, App, and URL Tracking](workforce-management/docs/usecases/uc-29-screenshot-app-url-tracking/uc-29-screenshot-app-url-tracking.png)
 
+
+```mermaid
+flowchart TD
+    ROOT["WORKFORCE MANAGEMENT<br/>EXTERNAL PORTALS"]
+
+    ROOT --> CLIENT["Client Portal"]
+    ROOT --> CANDIDATE["Candidate Portal"]
+    ROOT --> PUBLIC["Public Career Area"]
+    ROOT --> INTEGRATIONS["Third-party Integrations"]
+
+    CLIENT --> CLIENT_DASH["Client Dashboard<br/>CL"]
+    CLIENT --> CLIENT_PROJECTS["Client Projects<br/>CL"]
+    CLIENT --> PROJECT_DETAIL["Project Detail<br/>CL"]
+    CLIENT --> TASK_STATUS["Task & Milestone Status<br/>CL"]
+    CLIENT --> TIME_BUDGET["Time & Budget View<br/>CL"]
+    CLIENT --> FILES["Project Files<br/>CL"]
+    CLIENT --> CLIENT_REPORTS["Client Reports<br/>CL"]
+
+    CANDIDATE --> CAND_PROFILE["Candidate Profile<br/>CD"]
+    CANDIDATE --> APPLICATIONS["My Applications<br/>CD"]
+    CANDIDATE --> APPLICATION_DETAIL["Application Detail<br/>CD"]
+    CANDIDATE --> STATUS["Application Status<br/>CD"]
+    CANDIDATE --> INTERVIEWS["Interview Schedule<br/>CD"]
+    CANDIDATE --> OFFER["Offer Details<br/>CD"]
+    CANDIDATE --> ONBOARDING["Onboarding Progress<br/>CD"]
+
+    PUBLIC --> CAREERS["Career Page<br/>Public"]
+    PUBLIC --> JOB_SEARCH["Search Jobs<br/>Public"]
+    PUBLIC --> JOB_DETAIL["Job Detail<br/>Public"]
+    PUBLIC --> APPLY["Apply for Job<br/>Public"]
+    PUBLIC --> REGISTER["Candidate Registration<br/>Public"]
+
+    INTEGRATIONS --> EMAIL["Email Integration<br/>SA · TA"]
+    INTEGRATIONS --> STORAGE["Cloud Storage<br/>SA · TA"]
+    INTEGRATIONS --> CALENDAR["Calendar Integration<br/>SA · TA"]
+    INTEGRATIONS --> PAY_GATEWAY["Payroll / Payment Gateway<br/>SA · TA"]
+    INTEGRATIONS --> SSO["SSO / SAML / OAuth<br/>SA · TA"]
+    INTEGRATIONS --> WEBHOOK["Webhooks / API<br/>SA · TA"]
+    INTEGRATIONS --> INTEGRATION_LOG["Integration Logs<br/>SA · TA"]
+
+    classDef root fill:#cffafe,stroke:#0891b2,color:#164e63,stroke-width:2px;
+    classDef group fill:#ecfeff,stroke:#06b6d4,color:#155e75,stroke-width:1.5px;
+    classDef screen fill:#f8fafc,stroke:#94a3b8,color:#0f172a,stroke-width:1px;
+
+    class ROOT root;
+    class CLIENT,CANDIDATE,PUBLIC,INTEGRATIONS group;
+    class CLIENT_DASH,CLIENT_PROJECTS,PROJECT_DETAIL,TASK_STATUS,TIME_BUDGET,FILES,CLIENT_REPORTS,CAND_PROFILE,APPLICATIONS,APPLICATION_DETAIL,STATUS,INTERVIEWS,OFFER,ONBOARDING,CAREERS,JOB_SEARCH,JOB_DETAIL,APPLY,REGISTER,EMAIL,STORAGE,CALENDAR,PAY_GATEWAY,SSO,WEBHOOK,INTEGRATION_LOG screen;
+
+    linkStyle default stroke:#64748b,stroke-width:1.2px;
+```
+
+## III. Information Architecture
+IA is designed on this link [Link to] (https://lucid.app/lucidchart/228fd30f-d248-4dac-848c-a8e1fbea7d2f/edit?viewport_loc=-2411%2C-8810%2C17587%2C11345%2C0_0&invitationId=inv_d97e91bf-91ca-4307-8d73-eb570ff48ea6)
