@@ -535,66 +535,66 @@ The following features are ordered by business impact and represent the core val
 ### Core Time, Attendance, and Leave
 
 ### 1. Project and Time Tracking
-![Project and Time Tracking](workforce-management/docs/usecases/uc01-project-and-time-tracking/uc01-project-and-time-tracking.png)
+![Project and Time Tracking](![alt text](image.png))
 
 ### 2. Payroll Processing
-![Payroll Processing](workforce-management/docs/usecases/uc02-payroll-processing/uc02-payroll-processing.png)
+![Payroll Processing](![alt text](image-1.png))
 
 ### 3. Payslip Management
-![Payslip Management](workforce-management/docs/usecases/uc03-payslip-management/uc03-payslip-management.png)
+![Payslip Management](![alt text](image-2.png))
 
 ### 4. Clock In / Clock Out
-![Clock In / Clock Out](workforce-management/docs/usecases/uc04-clock-in-or-out/uc04-clock-in-or-out.png)
+![Clock In / Clock Out](![alt text](image-3.png))
 
 ### 5. Break Tracking
-![Break Tracking](workforce-management/docs/usecases/uc05-break-tracking/uc05-break-tracking.png)
+![Break Tracking](![alt text](image-4.png))
 
 ### 6. Attendance Record Management
-![Attendance Record Management](workforce-management/docs/usecases/uc-06-attendance-record-management/uc-06-attendance-record-management.png)
+![Attendance Record Management](![alt text](image-5.png))
 
 ### 7. Overtime Management
-![Overtime Management](workforce-management/docs/usecases/uc-07-overtime-management/uc-07-overtime-management.png)
+![Overtime Management](![alt text](image-6.png))
 
 ### 8. Timesheet Management
-![Timesheet Management](workforce-management/docs/usecases/uc-08-timesheet-management/uc-08-timesheet-management.png)
+![Timesheet Management](![alt text](image-7.png))
 
 ### 9. Time Review and Approval
-![Time Review and Approval](workforce-management/docs/usecases/uc-09-time-review-and-approval/uc-09-time-review-and-approval.png)
+![Time Review and Approval](![alt text](image-8.png))
 
 ### 10. Onsite Work Location Management
 ![Onsite Work Location Management](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
 
 ### 11. Employment Lifecycle Management
-![Employment Lifecycle Management](workforce-management/docs/usecases/uc-11-employement-liftcycle-management/uc-11-employement-liftcycle-management.png)
+![Employment Lifecycle Management](![alt text](image-9.png))
 
 ### 12. Leave Request Management
-![Leave Request Management](workforce-management/docs/usecases/uc-12-leave-request-management/uc-12-leave-request-management.png)
+![Leave Request Management](![alt text](image-10.png))
 
 ### 13. Leave Balance Management
-![Leave Balance Management](workforce-management/docs/usecases/uc-13-leave-balance-management/uc-13-leave-balance-management.png)
+![Leave Balance Management](![alt text](image-11.png))
 
 ### 14. Leave Approval
-![Leave Approval](workforce-management/docs/usecases/uc-14-leave-approval/uc-14-leave-approval.png)
+![Leave Approval](![alt text](image-12.png))
 
 ### Project, Task, and Productivity
 
 ### 15. Project Management
-![Project Management](workforce-management/docs/usecases/uc-15-project-management/uc-15-project-management.png)
+![Project Management](![alt text](image-13.png))
 
 ### 16. Project Member Management
-![Project Member Management](workforce-management/docs/usecases/uc-16-project-member-management/uc-16-project-member-management.png)
+![Project Member Management](![alt text](image-14.png))
 
 ### 17. Task Management
-![Task Management](workforce-management/docs/usecases/uc-17-task-management/uc-17-task-management.png)
+![Task Management](![alt text](image-15.png))
 
 ### 18. Task Progress Management
 ![Task Progress Management](workforce-management/docs/usecases/uc-18-task-progress-mangament/uc-18-task-progress-mangament.png)
 
 ### 19. Department Management
-![Department Management](workforce-management/docs/usecases/uc-19-department-management/uc-19-department-management.png)
+![Department Management](![alt text](image-16.png))
 
 ### 20. Position Management
-![Position Management](workforce-management/docs/usecases/uc-20-position-management/uc-20-position-management.png)
+![Position Management](![alt text](image-17.png))
 
 ### 21. Team and Reporting Line Management
 ![Team and Reporting Line Management](workforce-management/docs/usecases/uc-21-team-report-line-management/uc-21-team-report-line-management.png)
