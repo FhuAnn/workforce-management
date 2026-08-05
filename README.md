@@ -627,7 +627,124 @@ The following features are ordered by business impact and represent the core val
 
 
 
-## III. Information Architecture and UI Hierachy
+## III. Swimlane Images
+
+### Core Time, Attendance, and Leave
+
+#### 1. Project and Task Time Tracking
+![Project and Task Time Tracking](workforce-management/docs/swimlanes/imgs/01_project_task_time_tracking.png)
+
+#### 2A. Payroll Processing - Prepare Payroll
+![Payroll Processing - Prepare Payroll](workforce-management/docs/swimlanes/imgs/02a_payroll_processing_prepare.png)
+
+#### 2B. Payroll Processing - Approval and Payment
+![Payroll Processing - Approval and Payment](workforce-management/docs/swimlanes/imgs/02b_payroll_processing_approval.png)
+
+#### 4. Clock In / Clock Out
+![Clock In / Clock Out](workforce-management/docs/swimlanes/imgs/04_clock_in_clock_out.png)
+
+#### 5. Break Tracking
+![Break Tracking](workforce-management/docs/swimlanes/imgs/05_break_tracking.png)
+
+#### 6. Attendance Record Management
+![Attendance Record Management](workforce-management/docs/swimlanes/imgs/06_attendance_record_management.png)
+
+#### 7A. Overtime Management - Request and Approval
+![Overtime Management - Request and Approval](workforce-management/docs/swimlanes/imgs/07a_overtime_request_approval.png)
+
+#### 7B. Overtime Management - Validation and Pay
+![Overtime Management - Validation and Pay](workforce-management/docs/swimlanes/imgs/07b_overtime_record_pay.png)
+
+#### 8. Timesheet Management
+![Timesheet Management](workforce-management/docs/swimlanes/imgs/08_timesheet_management.png)
+
+#### 9. Timesheet Review and Approval
+![Timesheet Review and Approval](workforce-management/docs/swimlanes/imgs/09_timesheet_review_approval.png)
+
+#### 10A. Onboarding Management - Prepare New Hire
+![Onboarding Management - Prepare New Hire](workforce-management/docs/swimlanes/imgs/10a_onboarding_plan.png)
+
+#### 10B. Onboarding Management - Complete Onboarding
+![Onboarding Management - Complete Onboarding](workforce-management/docs/swimlanes/imgs/10b_onboarding_execution.png)
+
+#### 11. Employment Lifecycle Management
+![Employment Lifecycle Management](workforce-management/docs/swimlanes/imgs/11_employment_lifecycle_management.png)
+
+#### 12. Leave Request Management
+![Leave Request Management](workforce-management/docs/swimlanes/imgs/12_leave_request_management.png)
+
+#### 13. Leave Balance Management
+![Leave Balance Management](workforce-management/docs/swimlanes/imgs/13_leave_balance_management.png)
+
+#### 14. Leave Approval
+![Leave Approval](workforce-management/docs/swimlanes/imgs/14_leave_approval.png)
+
+### Project, Task, and Organizational Management
+
+#### 15. Project Management
+![Project Management](workforce-management/docs/swimlanes/imgs/15_project_management.png)
+
+#### 16. Project Member Management
+![Project Member Management](workforce-management/docs/swimlanes/imgs/16_project_member_management.png)
+
+#### 17. Task Management
+![Task Management](workforce-management/docs/swimlanes/imgs/17_task_management.png)
+
+#### 18. Task Progress Management
+![Task Progress Management](workforce-management/docs/swimlanes/imgs/18_task_progress_management.png)
+
+#### 19. Department Management
+![Department Management](workforce-management/docs/swimlanes/imgs/19_department_management.png)
+
+#### 20. Position Management
+![Position Management](workforce-management/docs/swimlanes/imgs/20_position_management.png)
+
+#### 21. Team and Reporting Line Management
+![Team and Reporting Line Management](workforce-management/docs/swimlanes/imgs/21_team_reporting_line_management.png)
+
+### Administration, Reporting, Tenant, and Engagement
+
+#### 22. Workforce Dashboard
+![Workforce Dashboard](workforce-management/docs/swimlanes/imgs/22_workforce_dashboard.png)
+
+#### 23. Workforce Reporting and Export
+![Workforce Reporting and Export](workforce-management/docs/swimlanes/imgs/23_workforce_reporting_export.png)
+
+#### 24A. Tenant Management - Create Organization
+![Tenant Management - Create Organization](workforce-management/docs/swimlanes/imgs/24a_tenant_management_create.png)
+
+#### 24B. Tenant Management - Data Isolation
+![Tenant Management - Data Isolation](workforce-management/docs/swimlanes/imgs/24b_tenant_management_isolation.png)
+
+#### 26A. Employee Experience - Announcements
+![Employee Experience - Announcements](workforce-management/docs/swimlanes/imgs/26a_employee_engagement_announcement.png)
+
+#### 26B. Employee Engagement - Survey and Feedback
+![Employee Engagement - Survey and Feedback](workforce-management/docs/swimlanes/imgs/26b_employee_engagement_survey.png)
+
+#### 27A. Compensation Planning - Review Cycle
+![Compensation Planning - Review Cycle](workforce-management/docs/swimlanes/imgs/27a_compensation_planning_cycle.png)
+
+#### 27B. Compensation Planning - Approval and Total Rewards
+![Compensation Planning - Approval and Total Rewards](workforce-management/docs/swimlanes/imgs/27b_compensation_approval_rewards.png)
+
+#### 28A. Productivity Monitoring - Collect Activity
+![Productivity Monitoring - Collect Activity](workforce-management/docs/swimlanes/imgs/28a_productivity_activity_collection.png)
+
+#### 28B. Productivity Monitoring - Manager Review
+![Productivity Monitoring - Manager Review](workforce-management/docs/swimlanes/imgs/28b_productivity_activity_review.png)
+
+#### 29A. Screenshot Tracking - Capture and Privacy
+![Screenshot Tracking - Capture and Privacy](workforce-management/docs/swimlanes/imgs/29a_screenshot_capture_privacy.png)
+
+#### 29B. App and URL Tracking
+![App and URL Tracking](workforce-management/docs/swimlanes/imgs/29b_app_url_tracking.png)
+
+#### 29C. Screenshot Review and Deletion
+![Screenshot Review and Deletion](workforce-management/docs/swimlanes/imgs/29c_screenshot_review_delete.png)
+
+
+## IV. Information Architecture and UI Hierachy
 IA is designed on this link [Link to] (https://lucid.app/lucidchart/228fd30f-d248-4dac-848c-a8e1fbea7d2f/edit?viewport_loc=-2411%2C-8810%2C17587%2C11345%2C0_0&invitationId=inv_d97e91bf-91ca-4307-8d73-eb570ff48ea6)
 
 
