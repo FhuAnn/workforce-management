@@ -535,8 +535,7 @@ The following features are ordered by business impact and represent the core val
 ### Core Time, Attendance, and Leave
 
 ### 1. Project and Time Tracking
-![Project and Time Tracking](![alt text](workforce-management/docs/imgs/image.png))
-
+![alt text](image.png)
 ### 2. Payroll Processing
 ![Payroll Processing](![alt text](workforce-management/docs/imgs/image-1.png))
 
