@@ -535,91 +535,91 @@ The following features are ordered by business impact and represent the core val
 ### Core Time, Attendance, and Leave
 
 ### 1. Project and Time Tracking
-![alt text](image.png)
+![alt text](workforce-management/docs/imgs/uc01.png)
 ### 2. Payroll Processing
-![Payroll Processing](![alt text](workforce-management/docs/imgs/image-1.png))
+![alt text](workforce-management/docs/imgs/uc02.png)
 
 ### 3. Payslip Management
-![Payslip Management](![alt text](workforce-management/docs/imgs/image-2.png))
+![alt text](workforce-management/docs/imgs/uc03.png)
 
 ### 4. Clock In / Clock Out
-![Clock In / Clock Out](![alt text](workforce-management/docs/imgs/image-3.png))
+![alt text](workforce-management/docs/imgs/uc04.png)
 
 ### 5. Break Tracking
-![Break Tracking](![alt text](workforce-management/docs/imgs/image-4.png))
+![alt text](workforce-management/docs/imgs/uc05.png)
 
 ### 6. Attendance Record Management
-![Attendance Record Management](![alt text](workforce-management/docs/imgs/image-5.png))
+![alt text](workforce-management/docs/imgs/uc06.png)
 
 ### 7. Overtime Management
-![Overtime Management](![alt text](workforce-management/docs/imgs/image-6.png))
+![alt text](workforce-management/docs/imgs/uc07.png)
 
 ### 8. Timesheet Management
-![Timesheet Management](![alt text](workforce-management/docs/imgs/image-7.png))
+![alt text](workforce-management/docs/imgs/uc08.png)
 
 ### 9. Time Review and Approval
-![alt text](workforce-management/docs/imgs/image-18.png)
+![alt text](workforce-management/docs/imgs/uc09.png)
 
 ### 10. Onsite Work Location Management
 ![Onsite Work Location Management](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
 
 ### 11. Employment Lifecycle Management
-![alt text](workforce-management/docs/imgs/image-19.png)
+![alt text](workforce-management/docs/imgs/uc11.png)
 
 ### 12. Leave Request Management
-![alt text](workforce-management/docs/imgs/image-20.png)
+![alt text](workforce-management/docs/imgs/uc12.png)
 
 ### 13. Leave Balance Management
-![alt text](workforce-management/docs/imgs/image-21.png)
+![alt text](workforce-management/docs/imgs/uc13.png)
 
 ### 14. Leave Approval
-![alt text](workforce-management/docs/imgs/image-22.png)
+![alt text](workforce-management/docs/imgs/uc14.png)
 
 ### Project, Task, and Productivity
 
 ### 15. Project Management
-![alt text](workforce-management/docs/imgs/image-23.png)
+![alt text](workforce-management/docs/imgs/uc15.png)
 
 ### 16. Project Member Management
-![alt text](workforce-management/docs/imgs/image-24.png)
+![alt text](workforce-management/docs/imgs/uc16.png)
 
 ### 17. Task Management
-![alt text](workforce-management/docs/imgs/image-25.png)
+![alt text](workforce-management/docs/imgs/uc17.png)
 
 ### 18. Task Progress Management
-![alt text](workforce-management/docs/imgs/image-26.png)
+![alt text](workforce-management/docs/imgs/uc18.png)
 
 ### 19. Department Management
-![alt text](workforce-management/docs/imgs/image-27.png)
+![alt text](workforce-management/docs/imgs/uc19.png)
 
 ### 20. Position Management
-![alt text](workforce-management/docs/imgs/image-28.png)
+![alt text](workforce-management/docs/imgs/uc20.png)
 
 ### 21. Team and Reporting Line Management
-![alt text](workforce-management/docs/imgs/image-29.png)
+![alt text](workforce-management/docs/imgs/uc21.png)
 
 ### 22. Workforce Dashboard
-![alt text](image-31.png)
+![alt text](workforce-management/docs/imgs/uc22.png)
 ### 23. Workforce Reporting and Export
-![alt text](workforce-management/docs/imgs/image-30.png)
+![alt text](workforce-management/docs/imgs/uc23.png)
 
 ### 24. Tenant Management
-![alt text](workforce-management/docs/imgs/image-32.png)
+![alt text](workforce-management/docs/imgs/uc24.png)
 
 ### 25. Tenant Configuration
-![alt text](workforce-management/docs/imgs/image-1.png)
+![alt text](workforce-management/docs/imgs/uc25.png)
 
 ### 26. Employment Engagement
-![alt text](workforce-management/docs/imgs/image-2.png)
+![alt text](workforce-management/docs/imgs/uc26.png)
 
 ### 27. Compensation Plan and Total Rewards
-![alt text](workforce-management/docs/imgs/image-3.png)
+![alt text](workforce-management/docs/imgs/uc27.png)
 
 ### 28. Productivity and Activity Monitoring
-![alt text](workforce-management/docs/imgs/image-5.png)
+![alt text](workforce-management/docs/imgs/uc28.png)
 
 ### 29. Screenshot, App, and URL Tracking
-![alt text](workforce-management/docs/imgs/image-4.png)
+![alt text](workforce-management/docs/imgs/uc29.png)
 
 
 
