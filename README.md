@@ -561,7 +561,7 @@ The following features are ordered by business impact and represent the core val
 ![alt text](workforce-management/docs/imgs/uc09.png)
 
 ### 10. Onsite Work Location Management
-![Onsite Work Location Management](workforce-management/docs/usecases/uc10-onsite-work-location-management/uc10-onsite-work-location-management.png)
+![Onsite Work Location Management](workforce-management/docs/imgs/uc10.png)
 
 ### 11. Employment Lifecycle Management
 ![alt text](workforce-management/docs/imgs/uc11.png)
@@ -749,11 +749,13 @@ IA is designed on this link [Link to] (https://lucid.app/lucidchart/228fd30f-d24
 ```mermaid
 flowchart TD
     ROOT["Workforce Management SaaS"]
-
     ROOT --> PUBLIC["Public & Authentication"]
     ROOT --> APP["Core Application"]
     ROOT --> ADMIN["Administration"]
 
+    %% =====================================================
+    %% PUBLIC & AUTHENTICATION
+    %% =====================================================
     PUBLIC --> LANDING["Landing Page"]
     PUBLIC --> LOGIN["Login"]
     PUBLIC --> FORGOT["Forgot Password"]
@@ -761,16 +763,93 @@ flowchart TD
     PUBLIC --> VERIFY["Account Verification"]
     PUBLIC --> INVITE["Accept Invitation"]
 
-    APP --> DASHBOARD["Dashboard"]
-    APP --> PEOPLE["People & Employee Management"]
-    APP --> TIME["Time Tracking"]
-    APP --> ATTENDANCE["Attendance & Leave"]
-    APP --> PROJECT["Projects & Tasks"]
-    APP --> PAYROLL["Payroll & Payslips"]
-    APP --> ACTIVITY["Activity Monitoring"]
-    APP --> REPORTS["Reports & Analytics"]
-    APP --> NOTIFICATIONS["Notifications"]
+    LANDING --- LANDING_DESC["Introduce the platform, key features,<br/>pricing, and sign-up options."]
+    LOGIN --- LOGIN_DESC["Allow users to sign in using<br/>their registered credentials."]
+    FORGOT --- FORGOT_DESC["Allow users to request a password<br/>recovery email."]
+    RESET --- RESET_DESC["Allow users to create a new password<br/>using a valid reset token."]
+    VERIFY --- VERIFY_DESC["Verify a user's email address<br/>and activate the account."]
+    INVITE --- INVITE_DESC["Allow invited users to join a tenant<br/>and complete account setup."]
 
+    %% =====================================================
+    %% CORE APPLICATION — VERTICAL SPINE
+    %% =====================================================
+
+    APP --> APP_SPINE_01(( ))
+    APP_SPINE_01 --> APP_SPINE_02(( ))
+    APP_SPINE_02 --> APP_SPINE_03(( ))
+    APP_SPINE_03 --> APP_SPINE_04(( ))
+    APP_SPINE_04 --> APP_SPINE_05(( ))
+    APP_SPINE_05 --> APP_SPINE_06(( ))
+    APP_SPINE_06 --> APP_SPINE_07(( ))
+    APP_SPINE_07 --> APP_SPINE_08(( ))
+    APP_SPINE_08 --> APP_SPINE_09(( ))
+
+    %% Branch 1
+    APP_SPINE_01 --> DASHBOARD["Dashboard"]
+    DASHBOARD --- DASHBOARD_DESC[
+        "Display workforce summaries, alerts,<br/>
+        pending actions, and key metrics."
+    ]
+
+    %% Branch 2
+    APP_SPINE_02 --> PEOPLE["People & Employee Management"]
+    PEOPLE --- PEOPLE_DESC[
+        "Manage employee profiles, employment data,<br/>
+        documents, teams, and organization structure."
+    ]
+
+    %% Branch 3
+    APP_SPINE_03 --> TIME["Time Tracking"]
+    TIME --- TIME_DESC[
+        "Track working time by employee,<br/>
+        project, task, and work session."
+    ]
+
+    %% Branch 4
+    APP_SPINE_04 --> ATTENDANCE["Attendance & Leave"]
+    ATTENDANCE --- ATTENDANCE_DESC[
+        "Manage attendance records, schedules,<br/>
+        leave requests, balances, and approvals."
+    ]
+
+    %% Branch 5
+    APP_SPINE_05 --> PROJECT["Projects & Tasks"]
+    PROJECT --- PROJECT_DESC[
+        "Create projects and tasks, assign members,<br/>
+        and monitor work progress."
+    ]
+
+    %% Branch 6
+    APP_SPINE_06 --> PAYROLL["Payroll & Payslips"]
+    PAYROLL --- PAYROLL_DESC[
+        "Calculate payroll, review earnings and deductions,<br/>
+        and publish employee payslips."
+    ]
+
+    %% Branch 7
+    APP_SPINE_07 --> ACTIVITY["Activity Monitoring"]
+    ACTIVITY --- ACTIVITY_DESC[
+        "Monitor screenshots, applications, websites,<br/>
+        activity levels, and work evidence."
+    ]
+
+    %% Branch 8
+    APP_SPINE_08 --> REPORTS["Reports & Analytics"]
+    REPORTS --- REPORTS_DESC[
+        "Generate workforce, attendance, payroll,<br/>
+        productivity, and custom reports."
+    ]
+
+    %% Branch 9
+    APP_SPINE_09 --> NOTIFICATIONS["Notifications"]
+    NOTIFICATIONS --- NOTIFICATIONS_DESC[
+        "Notify users about approvals, tasks,<br/>
+        payslips, deadlines, and system events."
+    ]
+
+    %% =====================================================
+    %% ADMINISTRATION
+    %% =====================================================
     ADMIN --> TENANT["Tenant Administration"]
     ADMIN --> USERS["Users, Roles & Permissions"]
     ADMIN --> POLICIES["Policies & Configuration"]
@@ -778,13 +857,65 @@ flowchart TD
     ADMIN --> AUDIT["Audit Logs"]
     ADMIN --> SYSTEM["System Administration"]
 
-    classDef root fill:#000000,stroke:#2563eb,color:#ffffff
-    classDef group fill:#ede9fe,stroke:#7c3aed,color:#000000
-    classDef module fill:#f8fafc,stroke:#94a3b8,color:#000000
+    TENANT --- TENANT_DESC[
+        "Manage tenant information, branding,<br/>
+        subscription, and organization settings."
+    ]
+
+    USERS --- USERS_DESC[
+        "Manage user accounts, roles,<br/>
+        permissions, and access control."
+    ]
+
+    POLICIES --- POLICIES_DESC[
+        "Configure attendance, leave, payroll,<br/>
+        time-tracking, and security policies."
+    ]
+
+    INTEGRATIONS --- INTEGRATIONS_DESC[
+        "Connect external payroll, accounting,<br/>
+        calendar, storage, and identity services."
+    ]
+
+    AUDIT --- AUDIT_DESC[
+        "Review important user actions,<br/>
+        security events, and data changes."
+    ]
+
+    SYSTEM --- SYSTEM_DESC[
+        "Manage global settings, tenants,<br/>
+        system health, and platform operations."
+    ]
+
+    %% =====================================================
+    %% STYLES
+    %% =====================================================
+    classDef root fill:#000000,stroke:#2563eb,stroke-width:2px,color:#ffffff
+    classDef group fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#000000
+    classDef module fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,color:#000000
+    classDef description fill:#fff7ed,stroke:#fb923c,stroke-width:1px,color:#431407,font-size:12px
+
+    %% Small spine points
+    classDef spine fill:#94a3b8,stroke:#94a3b8,color:#94a3b8
 
     class ROOT root
     class PUBLIC,APP,ADMIN group
-    class LANDING,LOGIN,FORGOT,RESET,VERIFY,INVITE,DASHBOARD,PEOPLE,TIME,ATTENDANCE,PROJECT,PAYROLL,ACTIVITY,REPORTS,NOTIFICATIONS,TENANT,USERS,POLICIES,INTEGRATIONS,AUDIT,SYSTEM module
+
+    class LANDING,LOGIN,FORGOT,RESET,VERIFY,INVITE module
+    class DASHBOARD,PEOPLE,TIME,ATTENDANCE,PROJECT,PAYROLL,ACTIVITY,REPORTS,NOTIFICATIONS module
+    class TENANT,USERS,POLICIES,INTEGRATIONS,AUDIT,SYSTEM module
+
+    class LANDING_DESC,LOGIN_DESC,FORGOT_DESC,RESET_DESC,VERIFY_DESC,INVITE_DESC description
+
+    class DASHBOARD_DESC,PEOPLE_DESC,TIME_DESC,ATTENDANCE_DESC,PROJECT_DESC description
+    class PAYROLL_DESC,ACTIVITY_DESC,REPORTS_DESC,NOTIFICATIONS_DESC description
+
+    class TENANT_DESC,USERS_DESC,POLICIES_DESC,INTEGRATIONS_DESC,AUDIT_DESC,SYSTEM_DESC description
+
+    class APP_SPINE_01,APP_SPINE_02,APP_SPINE_03,APP_SPINE_04,APP_SPINE_05 spine
+    class APP_SPINE_06,APP_SPINE_07,APP_SPINE_08,APP_SPINE_09 spine
+
+    linkStyle default stroke:#94a3b8,stroke-width:1.5px
 ```
 
 ---
